@@ -12,10 +12,13 @@ import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj.buttons.JoystickButton;
 import frc.robot.commands.ExampleCommand;
+import frc.robot.commands.ActivateIntakeCommand;
+import frc.robot.commands.DeactivateIntakeCommand;
 import frc.robot.commands.DriveTrainCommand;
 import frc.robot.commands.DriveTrainReversedCommand;
 import frc.robot.subsystems.DriveTrainSubsystem;
 import frc.robot.subsystems.ExampleSubsystem;
+import frc.robot.subsystems.IntakeSubsystem;
 import edu.wpi.first.wpilibj2.command.Command;
 
 /**
@@ -35,7 +38,11 @@ public class RobotContainer {
 
   private final DriveTrainSubsystem driveTrainSubsystem = new DriveTrainSubsystem();
   private final DriveTrainCommand driveTrainCommand = new DriveTrainCommand(driveTrainSubsystem, leftStick, rightStick);
-  private final edu.wpi.first.wpilibj.command.Command driveTrainReversedCommand = new DriveTrainReversedCommand(driveTrainSubsystem, leftStick, rightStick);
+  private final DriveTrainReversedCommand driveTrainReversedCommand = new DriveTrainReversedCommand(driveTrainSubsystem, leftStick, rightStick);
+
+  private final IntakeSubsystem intakeSubsystem = new IntakeSubsystem();
+  private final ActivateIntakeCommand activateIntakeCommand = new ActivateIntakeCommand(intakeSubsystem);
+  private final DeactivateIntakeCommand deactivateIntakeCommand = new DeactivateIntakeCommand(intakeSubsystem);
 
   /**
    * The container for the robot.  Contains subsystems, OI devices, and commands.
@@ -44,6 +51,9 @@ public class RobotContainer {
     // Configure the button bindings
     configureButtonBindings();
     driveTrainSubsystem.setDefaultCommand(driveTrainCommand);
+
+    // if there are no commands running on the shooter, the shooter will be deactivated
+    intakeSubsystem.setDefaultCommand(deactivateIntakeCommand);
   }
 
   /**
@@ -54,7 +64,9 @@ public class RobotContainer {
    */
   private void configureButtonBindings() {
     new JoystickButton(leftStick, 1)
-      .whenPressed(driveTrainReversedCommand);
+      .toggleWhenPressed(driveTrainReversedCommand);
+    new JoystickButton(leftStick, 2)
+      .whileHeld(activateIntakeCommand); // The correct method here might be .whileActive(), don't know...
   }
 
 
