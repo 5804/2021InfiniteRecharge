@@ -44,6 +44,24 @@ public class RobotContainer {
   private final ActivateIntakeCommand activateIntakeCommand = new ActivateIntakeCommand(intakeSubsystem);
   private final DeactivateIntakeCommand deactivateIntakeCommand = new DeactivateIntakeCommand(intakeSubsystem);
 
+  // All joystick buttons are defined here
+  JoystickButton leftTrigger = new JoystickButton(leftStick, 0);
+  JoystickButton leftThumbMain = new JoystickButton(leftStick, 1);
+  JoystickButton leftThumbLeft = new JoystickButton(leftStick, 2);
+  JoystickButton leftThumbRight = new JoystickButton(leftStick, 3);
+  JoystickButton leftRightArrayTR = new JoystickButton(leftStick, 4);
+  JoystickButton leftRightArrayTM = new JoystickButton(leftStick, 5);
+  JoystickButton leftRightArrayTL = new JoystickButton(leftStick, 6);
+  JoystickButton leftRightArrayBL = new JoystickButton(leftStick, 7);
+  JoystickButton leftRightArrayBM = new JoystickButton(leftStick, 8);
+  JoystickButton leftRightArrayBR = new JoystickButton(leftStick, 9);
+  JoystickButton leftLeftArrayTL = new JoystickButton(leftStick, 10);
+  JoystickButton leftLeftArrayTM = new JoystickButton(leftStick, 11);
+  JoystickButton leftLeftArrayTR = new JoystickButton(leftStick, 12);
+  JoystickButton leftLeftArrayBR = new JoystickButton(leftStick, 13);
+  JoystickButton leftLeftArrayBM = new JoystickButton(leftStick, 14);
+  JoystickButton leftLeftArrayBL = new JoystickButton(leftStick, 15);
+
   /**
    * The container for the robot.  Contains subsystems, OI devices, and commands.
    */
@@ -63,9 +81,9 @@ public class RobotContainer {
    * {@link edu.wpi.first.wpilibj2.command.button.JoystickButton}.
    */
   private void configureButtonBindings() {
-    new JoystickButton(leftStick, 1)
+    leftThumbMain
       .toggleWhenPressed(driveTrainReversedCommand);
-    new JoystickButton(leftStick, 2)
+    leftThumbLeft
       .whileHeld(activateIntakeCommand); // The correct method here might be .whileActive(), don't know...
   }
 
