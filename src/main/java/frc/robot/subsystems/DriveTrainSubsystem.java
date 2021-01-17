@@ -44,4 +44,8 @@ public class DriveTrainSubsystem extends SubsystemBase {
     twoMotorDrive.tankDrive(left, right);
   }
 
+  public void driveWithJoystickReversed(double left, double right) {
+    twoMotorDrive.tankDrive(-left, -right);
+  }
+
 }

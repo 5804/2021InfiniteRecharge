@@ -10,8 +10,10 @@ package frc.robot;
 import edu.wpi.first.wpilibj.GenericHID;
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.XboxController;
+import edu.wpi.first.wpilibj.buttons.JoystickButton;
 import frc.robot.commands.ExampleCommand;
 import frc.robot.commands.DriveTrainCommand;
+import frc.robot.commands.DriveTrainReversedCommand;
 import frc.robot.subsystems.DriveTrainSubsystem;
 import frc.robot.subsystems.ExampleSubsystem;
 import edu.wpi.first.wpilibj2.command.Command;
@@ -33,6 +35,7 @@ public class RobotContainer {
 
   private final DriveTrainSubsystem driveTrainSubsystem = new DriveTrainSubsystem();
   private final DriveTrainCommand driveTrainCommand = new DriveTrainCommand(driveTrainSubsystem, leftStick, rightStick);
+  private final edu.wpi.first.wpilibj.command.Command driveTrainReversedCommand = new DriveTrainReversedCommand(driveTrainSubsystem, leftStick, rightStick);
 
   /**
    * The container for the robot.  Contains subsystems, OI devices, and commands.
@@ -50,6 +53,8 @@ public class RobotContainer {
    * {@link edu.wpi.first.wpilibj2.command.button.JoystickButton}.
    */
   private void configureButtonBindings() {
+    new JoystickButton(leftStick, 1)
+      .whenPressed(driveTrainReversedCommand);
   }
 
 
