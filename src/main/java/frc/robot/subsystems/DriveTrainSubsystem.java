@@ -19,6 +19,8 @@ public class DriveTrainSubsystem extends SubsystemBase {
   public WPI_TalonFX leftFollow;
 
   public DifferentialDrive twoMotorDrive;
+
+  public boolean isReversed = false;
   
   /**
    * Creates a new DriveTrainSubsystem.
@@ -40,12 +42,14 @@ public class DriveTrainSubsystem extends SubsystemBase {
     // This method will be called once per scheduler run
   }
 
-  public void driveWithJoystick(double left, double right){
-    twoMotorDrive.tankDrive(left, right);
-  }
+  public void driveWithJoystick(double left, double right) {
 
-  public void driveWithJoystickReversed(double left, double right) {
-    twoMotorDrive.tankDrive(-left, -right);
+    // if not reversed, normal tank drive, else flip left and right and negate the values
+    if (isReversed == false) {
+      twoMotorDrive.tankDrive(left, right);
+    } else {
+      twoMotorDrive.tankDrive(-right, -left);
+    }
   }
 
 }

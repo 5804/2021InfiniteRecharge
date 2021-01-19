@@ -7,20 +7,29 @@
 
 package frc.robot.commands;
 
+import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj2.command.CommandBase;
-import frc.robot.subsystems.IntakeSubsystem;
+import frc.robot.subsystems.DriveTrainSubsystem;
 
-public class ActivateIntakeCommand extends CommandBase {
+public class DriveWithJoysticksCommand extends CommandBase {
 
-  private final IntakeSubsystem intakeSubsystem;
+  private final DriveTrainSubsystem drive; 
+  
+  private final Joystick leftStick;
+  private final Joystick rightStick;
+
 
   /**
-   * Creates a new ActivateIntakeCommand.
+   * Creates a new DriveWithJoysticks.
    */
-  public ActivateIntakeCommand(IntakeSubsystem is) {
-    intakeSubsystem = is;
-    addRequirements(intakeSubsystem);
+  public DriveWithJoysticksCommand(DriveTrainSubsystem driveSub, Joystick left, Joystick right) {
+
+    drive = driveSub;
+    leftStick = left;
+    rightStick = right;
     // Use addRequirements() here to declare subsystem dependencies.
+    addRequirements(drive);
+
   }
 
   // Called when the command is initially scheduled.
@@ -31,7 +40,7 @@ public class ActivateIntakeCommand extends CommandBase {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    intakeSubsystem.activateIntake();
+    drive.driveWithJoystick(leftStick.getY(), rightStick.getY());
   }
 
   // Called once the command ends or is interrupted.

@@ -14,17 +14,13 @@ import edu.wpi.first.wpilibj2.command.CommandBase;
 public class DriveTrainReversedCommand extends CommandBase {
 
   private final DriveTrainSubsystem drive; 
-  
-  private final Joystick leftStick;
-  private final Joystick rightStick;
+
 
   /**
    * Creates a new DriveTrainReversedCommand.
    */
-  public DriveTrainReversedCommand(DriveTrainSubsystem driveSub, Joystick left, Joystick right) {
+  public DriveTrainReversedCommand(DriveTrainSubsystem driveSub) {
     drive = driveSub;
-    leftStick = left;
-    rightStick = right;
     // Use addRequirements() here to declare subsystem dependencies.
     addRequirements(drive);
   }
@@ -38,7 +34,7 @@ public class DriveTrainReversedCommand extends CommandBase {
   @Override
   public void execute() {
     // The joystick values are turned negative in the method driveWithJoystickReversed() in DriveTrainSubsystem.java
-    drive.driveWithJoystickReversed(leftStick.getY(), rightStick.getY());
+    drive.isReversed = true;
   }
 
   // Called once the command ends or is interrupted.
@@ -49,6 +45,6 @@ public class DriveTrainReversedCommand extends CommandBase {
   // Returns true when the command should end.
   @Override
   public boolean isFinished() {
-    return false;
+    return true;
   }
 }

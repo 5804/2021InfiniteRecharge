@@ -16,16 +16,12 @@ public class DriveTrainCommand extends CommandBase {
   
   private final DriveTrainSubsystem drive; 
   
-  private final Joystick leftStick;
-  private final Joystick rightStick;
 
   /**
    * Creates a new DriveTrainCommand.
    */
-  public DriveTrainCommand(DriveTrainSubsystem driveSub, Joystick left, Joystick right) {
+  public DriveTrainCommand(DriveTrainSubsystem driveSub) {
     drive = driveSub;
-    leftStick = left;
-    rightStick = right;
     // Use addRequirements() here to declare subsystem dependencies.
     addRequirements(drive);
   }
@@ -38,7 +34,7 @@ public class DriveTrainCommand extends CommandBase {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    drive.driveWithJoystick(leftStick.getY(), rightStick.getY());
+    drive.isReversed = false;
   }
 
   // Called once the command ends or is interrupted.
@@ -49,6 +45,6 @@ public class DriveTrainCommand extends CommandBase {
   // Returns true when the command should end.
   @Override
   public boolean isFinished() {
-    return false;
+    return true;
   }
 }

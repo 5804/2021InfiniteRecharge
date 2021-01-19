@@ -16,6 +16,7 @@ import frc.robot.commands.ActivateIntakeCommand;
 import frc.robot.commands.DeactivateIntakeCommand;
 import frc.robot.commands.DriveTrainCommand;
 import frc.robot.commands.DriveTrainReversedCommand;
+import frc.robot.commands.DriveWithJoysticksCommand;
 import frc.robot.subsystems.DriveTrainSubsystem;
 import frc.robot.subsystems.ExampleSubsystem;
 import frc.robot.subsystems.IntakeSubsystem;
@@ -28,39 +29,42 @@ import edu.wpi.first.wpilibj2.command.Command;
  * (including subsystems, commands, and button mappings) should be declared here.
  */
 public class RobotContainer {
-  public Joystick leftStick = new Joystick(0);
-  public Joystick rightStick = new Joystick(1);
+  public Joystick leftStick = new Joystick(1);
+  public Joystick rightStick = new Joystick(2);
 
-  // The robot's subsystems and commands are defined here...
+  // The robot's subsystems and commands are defined here
   private final ExampleSubsystem m_exampleSubsystem = new ExampleSubsystem();
 
   private final ExampleCommand m_autoCommand = new ExampleCommand(m_exampleSubsystem);
 
+  // Drivetrain subsystem and commands
   private final DriveTrainSubsystem driveTrainSubsystem = new DriveTrainSubsystem();
-  private final DriveTrainCommand driveTrainCommand = new DriveTrainCommand(driveTrainSubsystem, leftStick, rightStick);
-  private final DriveTrainReversedCommand driveTrainReversedCommand = new DriveTrainReversedCommand(driveTrainSubsystem, leftStick, rightStick);
+  // private final DriveTrainCommand driveTrainCommand = new DriveTrainCommand(driveTrainSubsystem);
+  // private final DriveTrainReversedCommand driveTrainReversedCommand = new DriveTrainReversedCommand(driveTrainSubsystem);
+  private final DriveWithJoysticksCommand driveWithJoysticksCommand = new DriveWithJoysticksCommand(driveTrainSubsystem, leftStick, rightStick);
 
+  // Intake subsystem and commands
   private final IntakeSubsystem intakeSubsystem = new IntakeSubsystem();
-  private final ActivateIntakeCommand activateIntakeCommand = new ActivateIntakeCommand(intakeSubsystem);
+  // private final ActivateIntakeCommand activateIntakeCommand = new ActivateIntakeCommand(intakeSubsystem);
   private final DeactivateIntakeCommand deactivateIntakeCommand = new DeactivateIntakeCommand(intakeSubsystem);
 
   // All joystick buttons are defined here
-  JoystickButton leftTrigger = new JoystickButton(leftStick, 0);
-  JoystickButton leftThumbMain = new JoystickButton(leftStick, 1);
-  JoystickButton leftThumbLeft = new JoystickButton(leftStick, 2);
-  JoystickButton leftThumbRight = new JoystickButton(leftStick, 3);
-  JoystickButton leftRightArrayTR = new JoystickButton(leftStick, 4);
-  JoystickButton leftRightArrayTM = new JoystickButton(leftStick, 5);
-  JoystickButton leftRightArrayTL = new JoystickButton(leftStick, 6);
-  JoystickButton leftRightArrayBL = new JoystickButton(leftStick, 7);
-  JoystickButton leftRightArrayBM = new JoystickButton(leftStick, 8);
-  JoystickButton leftRightArrayBR = new JoystickButton(leftStick, 9);
-  JoystickButton leftLeftArrayTL = new JoystickButton(leftStick, 10);
-  JoystickButton leftLeftArrayTM = new JoystickButton(leftStick, 11);
-  JoystickButton leftLeftArrayTR = new JoystickButton(leftStick, 12);
-  JoystickButton leftLeftArrayBR = new JoystickButton(leftStick, 13);
-  JoystickButton leftLeftArrayBM = new JoystickButton(leftStick, 14);
-  JoystickButton leftLeftArrayBL = new JoystickButton(leftStick, 15);
+  JoystickButton leftTrigger = new JoystickButton(leftStick, 1);
+  JoystickButton leftThumbMain = new JoystickButton(leftStick, 2);
+  JoystickButton leftThumbLeft = new JoystickButton(leftStick, 3);
+  JoystickButton leftThumbRight = new JoystickButton(leftStick, 4);
+  JoystickButton leftRightArrayTR = new JoystickButton(leftStick, 5);
+  JoystickButton leftRightArrayTM = new JoystickButton(leftStick, 6);
+  JoystickButton leftRightArrayTL = new JoystickButton(leftStick, 7);
+  JoystickButton leftRightArrayBL = new JoystickButton(leftStick, 8);
+  JoystickButton leftRightArrayBM = new JoystickButton(leftStick, 9);
+  JoystickButton leftRightArrayBR = new JoystickButton(leftStick, 10);
+  JoystickButton leftLeftArrayTL = new JoystickButton(leftStick, 11);
+  JoystickButton leftLeftArrayTM = new JoystickButton(leftStick, 12);
+  JoystickButton leftLeftArrayTR = new JoystickButton(leftStick, 13);
+  JoystickButton leftLeftArrayBR = new JoystickButton(leftStick, 14);
+  JoystickButton leftLeftArrayBM = new JoystickButton(leftStick, 15);
+  JoystickButton leftLeftArrayBL = new JoystickButton(leftStick, 16);
 
   /**
    * The container for the robot.  Contains subsystems, OI devices, and commands.
@@ -68,7 +72,7 @@ public class RobotContainer {
   public RobotContainer() {
     // Configure the button bindings
     configureButtonBindings();
-    driveTrainSubsystem.setDefaultCommand(driveTrainCommand);
+    driveTrainSubsystem.setDefaultCommand(driveWithJoysticksCommand);
 
     // if there are no commands running on the shooter, the shooter will be deactivated
     intakeSubsystem.setDefaultCommand(deactivateIntakeCommand);
@@ -81,10 +85,15 @@ public class RobotContainer {
    * {@link edu.wpi.first.wpilibj2.command.button.JoystickButton}.
    */
   private void configureButtonBindings() {
+    // make normal and reversed two seperate buttons, so that the drivers know what mode they are in
+    // button 1: driveTrainCommand (set the isReversed in the driveTrainSubsystem to false)
+    // button 2: driveTrainReversedCommand (set the isReversed in the driveTrainSubsystem to true)
     leftThumbMain
-      .toggleWhenPressed(driveTrainReversedCommand);
+      .whenPressed(new DriveTrainCommand(driveTrainSubsystem));
+    leftThumbRight
+      .whenPressed(new DriveTrainReversedCommand(driveTrainSubsystem));
     leftThumbLeft
-      .whileHeld(activateIntakeCommand); // The correct method here might be .whileActive(), don't know...
+      .whileHeld(new ActivateIntakeCommand(intakeSubsystem)); // The correct method here might be .whileActive(), don't know...
   }
 
 
