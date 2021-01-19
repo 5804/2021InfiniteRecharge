@@ -22,10 +22,9 @@ public class IntakeSubsystem extends SubsystemBase {
   public WPI_TalonFX intakeMotor;
 
   public IntakeSubsystem() {
-    intakeSolenoid1 = new Solenoid(0);
-    intakeSolenoid2 = new Solenoid(1);
+    intakeSolenoid1 = new Solenoid(1);
 
-    intakeMotor = new WPI_TalonFX(5);
+    intakeMotor = new WPI_TalonFX(10); 
   }
 
   @Override
@@ -36,7 +35,6 @@ public class IntakeSubsystem extends SubsystemBase {
   public void activateIntake() {
     // extend both pistons
     intakeSolenoid1.set(true);
-    intakeSolenoid1.set(true);
 
     // spin the intake motor
     intakeMotor.set(ControlMode.PercentOutput, Constants.INTAKE_MOTOR_SPEED);
@@ -45,7 +43,6 @@ public class IntakeSubsystem extends SubsystemBase {
   public void deactivateIntake() {
     // unextend both pistons
     intakeSolenoid1.set(false);
-    intakeSolenoid2.set(false);
 
     // stop spinning the intake motor
     intakeMotor.set(ControlMode.PercentOutput, 0);

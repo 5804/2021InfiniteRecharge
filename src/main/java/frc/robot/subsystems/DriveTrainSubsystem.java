@@ -31,6 +31,11 @@ public class DriveTrainSubsystem extends SubsystemBase {
     rightMain = new WPI_TalonFX(3);
     rightFollow = new WPI_TalonFX(4);
 
+    leftMain.setInverted(true);
+    leftFollow.setInverted(true);
+    rightMain.setInverted(true);
+    rightFollow.setInverted(true);
+
     leftFollow.follow(leftMain);
     rightFollow.follow(rightMain);
 
