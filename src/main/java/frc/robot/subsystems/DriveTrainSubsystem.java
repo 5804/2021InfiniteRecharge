@@ -10,6 +10,7 @@ package frc.robot.subsystems;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import com.ctre.phoenix.motorcontrol.can.WPI_TalonFX;
 import edu.wpi.first.wpilibj.drive.DifferentialDrive;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 public class DriveTrainSubsystem extends SubsystemBase {
   
@@ -45,6 +46,13 @@ public class DriveTrainSubsystem extends SubsystemBase {
   @Override
   public void periodic() {
     // This method will be called once per scheduler run
+    // send stuff to smartdashboard
+
+    SmartDashboard.putNumber("Left Position", leftMain.getSelectedSensorPosition());
+    SmartDashboard.putNumber("Right Position", rightMain.getSelectedSensorPosition());
+
+    SmartDashboard.putNumber("Left Velocity", leftMain.getSelectedSensorVelocity());
+    SmartDashboard.putNumber("Right Velocity", rightMain.getSelectedSensorVelocity());
   }
 
   public void driveWithJoystick(double left, double right) {
