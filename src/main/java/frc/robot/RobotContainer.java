@@ -68,6 +68,23 @@ public class RobotContainer {
   JoystickButton leftLeftArrayBM = new JoystickButton(leftStick, 15);
   JoystickButton leftLeftArrayBL = new JoystickButton(leftStick, 16);
 
+  JoystickButton rightTrigger = new JoystickButton(rightStick, 1);
+  JoystickButton rightThumbMain = new JoystickButton(rightStick, 2);
+  JoystickButton rightThumbLeft = new JoystickButton(rightStick, 3);
+  JoystickButton rightThumbRight = new JoystickButton(rightStick, 4);
+  JoystickButton rightRightArrayTR = new JoystickButton(rightStick, 5);
+  JoystickButton rightRightArrayTM = new JoystickButton(rightStick, 6);
+  JoystickButton rightRightArrayTL = new JoystickButton(rightStick, 7);
+  JoystickButton rightRightArrayBL = new JoystickButton(rightStick, 8);
+  JoystickButton rightRightArrayBM = new JoystickButton(rightStick, 9);
+  JoystickButton rightRightArrayBR = new JoystickButton(rightStick, 10);
+  JoystickButton rightLeftArrayTL = new JoystickButton(rightStick, 11);
+  JoystickButton rightLeftArrayTM = new JoystickButton(rightStick, 12);
+  JoystickButton rightLeftArrayTR = new JoystickButton(rightStick, 13);
+  JoystickButton rightLeftArrayBR = new JoystickButton(rightStick, 14);
+  JoystickButton rightLeftArrayBM = new JoystickButton(rightStick, 15);
+  JoystickButton rightLeftArrayBL = new JoystickButton(rightStick, 16);
+
   /**
    * The container for the robot.  Contains subsystems, OI devices, and commands.
    */
@@ -88,14 +105,15 @@ public class RobotContainer {
    * {@link edu.wpi.first.wpilibj2.command.button.JoystickButton}.
    */
   private void configureButtonBindings() {
-    // make normal and reversed two seperate buttons, so that the drivers know what mode they are in
-    // button 1: driveTrainCommand (set the isReversed in the driveTrainSubsystem to false)
-    // button 2: driveTrainReversedCommand (set the isReversed in the driveTrainSubsystem to true)
+    
+    // Leftstick button mappings
     leftThumbMain
       .whenPressed(new DriveTrainCommand(driveTrainSubsystem));
     leftThumbRight
       .whenPressed(new DriveTrainReversedCommand(driveTrainSubsystem));
-    leftThumbLeft
+
+    // Rightstick button mappings
+    rightTrigger
       .whileHeld(new ActivateIntakeCommand(intakeSubsystem)); // The correct method here might be .whileActive(), don't know...
   }
 
