@@ -127,6 +127,8 @@ public class RobotContainer {
       .whileHeld(new ActivateIntakeCommand(intakeSubsystem)); // The correct method here might be .whileActive(), don't know...
     rightThumbMain
       .whileHeld(new ActivateConveyorCommand(conveyorSubsystem));
+      
+    //shooter is the leftthumbmain, to actually fire, hold the lefttrigger
   }
 
 

@@ -32,7 +32,9 @@ public class ActivateConveyorCommand extends CommandBase {
   @Override
   public void execute() {
     // The logic checking if the conveyor is full is in the conveyor subsystem
-    conveyorSubsystem.activateConveyor();
+    if (conveyorSubsystem.getTimeOfFlight2Stat() || conveyorSubsystem.getTimeOfFlight3Stat()) {
+      conveyorSubsystem.activateConveyor();
+    }
   }
 
   // Called once the command ends or is interrupted.

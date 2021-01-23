@@ -25,6 +25,8 @@ public class IntakeSubsystem extends SubsystemBase {
   public WPI_TalonFX outerIntakeMotor;
   public WPI_TalonFX innerIntakeMotor;
 
+  
+
   public IntakeSubsystem() {
     // Inititalizing the outer intake solenoid
     intakeSolenoid1 = new Solenoid(1);
