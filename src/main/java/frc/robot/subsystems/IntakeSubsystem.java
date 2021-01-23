@@ -24,13 +24,6 @@ public class IntakeSubsystem extends SubsystemBase {
   // Declaring the motors in this subsystem
   public WPI_TalonFX outerIntakeMotor;
   public WPI_TalonFX innerIntakeMotor;
-  public WPI_TalonFX conveyorMotor;
-
-  // Declaring four time of flights
-  public TimeOfFlight timeOfFlight1;
-  public TimeOfFlight timeOfFlight2;
-  public TimeOfFlight timeOfFlight3;
-  public TimeOfFlight timeOfFlight4;
 
   public IntakeSubsystem() {
     // Inititalizing the outer intake solenoid
@@ -39,29 +32,15 @@ public class IntakeSubsystem extends SubsystemBase {
     // Initializng the three motors
     outerIntakeMotor = new WPI_TalonFX(10); 
     innerIntakeMotor = new WPI_TalonFX(9);
-    conveyorMotor = new WPI_TalonFX(8);
 
     // Enabling voltage compensation for the three motors
     outerIntakeMotor.enableVoltageCompensation(true);
     innerIntakeMotor.enableVoltageCompensation(true);
-    conveyorMotor.enableVoltageCompensation(true);
 
     // Configuring the volatge compSaturation for the motors
     outerIntakeMotor.configVoltageCompSaturation(12);
     innerIntakeMotor.configVoltageCompSaturation(12);
-    conveyorMotor.configVoltageCompSaturation(12);
-
-    // Initializing four time of flights
-    timeOfFlight1 = new TimeOfFlight(1);
-    timeOfFlight2 = new TimeOfFlight(2);
-    timeOfFlight3 = new TimeOfFlight(3);
-    timeOfFlight4 = new TimeOfFlight(4);
-
-    // Setting the ranging mode for all of the time of flights to short
-    timeOfFlight1.setRangingMode(RangingMode.Short, 25);
-    timeOfFlight2.setRangingMode(RangingMode.Short, 25);
-    timeOfFlight3.setRangingMode(RangingMode.Short, 25);
-    timeOfFlight4.setRangingMode(RangingMode.Short, 25);
+   
   }
 
   @Override
@@ -86,8 +65,5 @@ public class IntakeSubsystem extends SubsystemBase {
     outerIntakeMotor.set(ControlMode.PercentOutput, 0);
     innerIntakeMotor.set(ControlMode.PercentOutput, 0);
   }
-
-  // If time of flight 1 and 4:
-  // the thing is full and the conveyor will not move
 
 }

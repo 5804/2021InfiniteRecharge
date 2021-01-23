@@ -12,12 +12,14 @@ import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 
 import frc.robot.commands.ExampleCommand;
+import frc.robot.commands.UpdateToFsCommand;
+import frc.robot.commands.ActivateConveyorCommand;
 import frc.robot.commands.ActivateIntakeCommand;
 import frc.robot.commands.DeactivateIntakeCommand;
 import frc.robot.commands.DriveTrainCommand;
 import frc.robot.commands.DriveTrainReversedCommand;
 import frc.robot.commands.DriveWithJoysticksCommand;
-
+import frc.robot.subsystems.ConveyorSubsystem;
 import frc.robot.subsystems.DriveTrainSubsystem;
 import frc.robot.subsystems.ExampleSubsystem;
 import frc.robot.subsystems.IntakeSubsystem;
@@ -49,6 +51,11 @@ public class RobotContainer {
   private final IntakeSubsystem intakeSubsystem = new IntakeSubsystem();
   // private final ActivateIntakeCommand activateIntakeCommand = new ActivateIntakeCommand(intakeSubsystem);
   private final DeactivateIntakeCommand deactivateIntakeCommand = new DeactivateIntakeCommand(intakeSubsystem);
+   
+  // Conveyor subsystem and commands
+  private final ConveyorSubsystem conveyorSubsystem = new ConveyorSubsystem();
+  private final UpdateToFsCommand updateToFsCommand = new UpdateToFsCommand(conveyorSubsystem);
+  private final ActivateConveyorCommand activateConveyorCommand = new ActivateConveyorCommand(conveyorSubsystem);
 
   // All joystick buttons are defined here
   JoystickButton leftTrigger = new JoystickButton(leftStick, 1);
@@ -94,8 +101,11 @@ public class RobotContainer {
     configureButtonBindings();
     driveTrainSubsystem.setDefaultCommand(driveWithJoysticksCommand);
 
-    // if there are no commands running on the shooter, the shooter will be deactivated
+    // if there are no commands running on the intake, the intake will be deactivated
     intakeSubsystem.setDefaultCommand(deactivateIntakeCommand);
+
+    // if there are no commmands running on the conveyor, the conveyor will determine whether to run based off the ToFs
+    conveyorSubsystem.setDefaultCommand(updateToFsCommand);
   }
 
   /**
@@ -115,6 +125,8 @@ public class RobotContainer {
     // Rightstick button mappings
     rightTrigger
       .whileHeld(new ActivateIntakeCommand(intakeSubsystem)); // The correct method here might be .whileActive(), don't know...
+    rightThumbMain
+      .whileHeld(new ActivateConveyorCommand(conveyorSubsystem));
   }
 
 
