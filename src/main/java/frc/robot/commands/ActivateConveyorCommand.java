@@ -32,9 +32,16 @@ public class ActivateConveyorCommand extends CommandBase {
   @Override
   public void execute() {
     // The logic checking if the conveyor is full is in the conveyor subsystem
-    if (conveyorSubsystem.getTimeOfFlight2Stat() || conveyorSubsystem.getTimeOfFlight3Stat()) {
-      conveyorSubsystem.activateConveyor();
+    // If TimeOfFlight1 or TimeOfFlight4 do not see a ball 
+    if (!conveyorSubsystem.getTimeOfFlight1Stat() || !conveyorSubsystem.getTimeOfFlight4Stat()) {
+       // If TimeOfFlight2 or TimeOfFlight 3 see something 
+      if (conveyorSubsystem.getTimeOfFlight2Stat() || conveyorSubsystem.getTimeOfFlight3Stat()) {
+        conveyorSubsystem.activateConveyor();
+      }
+    } else {
+      conveyorSubsystem.deactivateConveyor();
     }
+    
   }
 
   // Called once the command ends or is interrupted.

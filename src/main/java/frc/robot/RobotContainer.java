@@ -12,7 +12,6 @@ import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 
 import frc.robot.commands.ExampleCommand;
-import frc.robot.commands.UpdateToFsCommand;
 import frc.robot.commands.ActivateConveyorCommand;
 import frc.robot.commands.ActivateIntakeCommand;
 import frc.robot.commands.DeactivateIntakeCommand;
@@ -54,7 +53,6 @@ public class RobotContainer {
    
   // Conveyor subsystem and commands
   private final ConveyorSubsystem conveyorSubsystem = new ConveyorSubsystem();
-  private final UpdateToFsCommand updateToFsCommand = new UpdateToFsCommand(conveyorSubsystem);
   private final ActivateConveyorCommand activateConveyorCommand = new ActivateConveyorCommand(conveyorSubsystem);
 
   // All joystick buttons are defined here
@@ -103,9 +101,6 @@ public class RobotContainer {
 
     // if there are no commands running on the intake, the intake will be deactivated
     intakeSubsystem.setDefaultCommand(deactivateIntakeCommand);
-
-    // if there are no commmands running on the conveyor, the conveyor will determine whether to run based off the ToFs
-    conveyorSubsystem.setDefaultCommand(updateToFsCommand);
   }
 
   /**
