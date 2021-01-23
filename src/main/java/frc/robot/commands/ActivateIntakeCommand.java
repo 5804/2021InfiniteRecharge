@@ -8,6 +8,7 @@
 package frc.robot.commands;
 
 import edu.wpi.first.wpilibj2.command.CommandBase;
+import static frc.robot.Constants.*;
 import frc.robot.subsystems.IntakeSubsystem;
 
 public class ActivateIntakeCommand extends CommandBase {
@@ -31,7 +32,19 @@ public class ActivateIntakeCommand extends CommandBase {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    intakeSubsystem.activateIntake();
+    // if either tof1 or tof4 dont see something
+    if (!intakeSubsystem.getTimeOfFlight1Stat() || !intakeSubsystem.getTimeOfFlight4Stat()) {
+      // if either tof2 or tof3 see something
+      if (intakeSubsystem.getTimeOfFlight2Stat() || intakeSubsystem.getTimeOfFlight3Stat()) {
+        intakeSubsystem.activateIntake(INNER_INTAKE_MOTOR_SPEED, CONVEYOR_MOTOR_SPEED);
+      } else {
+        // if either tof2 or tof3 dont see something, then run outer, inner, but not conveyor
+        intakeSubsystem.activateIntake(INNER_INTAKE_MOTOR_SPEED, STOP_MOTOR);
+      }
+    } else {
+      // if tof1 and tof4 see something, deactivate the intake
+      intakeSubsystem.deactivateIntake();
+    }
   }
 
   // Called once the command ends or is interrupted.
