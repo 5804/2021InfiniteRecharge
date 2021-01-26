@@ -87,6 +87,18 @@ public class IntakeSubsystem extends SubsystemBase {
     conveyorMotor.set(ControlMode.PercentOutput, 0);
   }
 
+  public void fire() {
+    // spin the intake motor
+    innerIntakeMotor.set(ControlMode.PercentOutput, 1.0);
+    conveyorMotor.set(ControlMode.PercentOutput, 1.0);
+  }
+
+    public void fireDeactivate() {
+    // spin the intake motor
+    innerIntakeMotor.set(ControlMode.PercentOutput, 0.0);
+    conveyorMotor.set(ControlMode.PercentOutput, 0.0);
+  }
+
   public boolean getTimeOfFlight1Stat() {
     if (timeOfFlight1.getRange() < 110) {
       return true;

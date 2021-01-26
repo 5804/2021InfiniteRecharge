@@ -18,6 +18,7 @@ import frc.robot.commands.DeactivateIntakeCommand;
 import frc.robot.commands.DriveTrainCommand;
 import frc.robot.commands.DriveTrainReversedCommand;
 import frc.robot.commands.DriveWithJoysticksCommand;
+import frc.robot.commands.*;
 
 import frc.robot.subsystems.DriveTrainSubsystem;
 import frc.robot.subsystems.ExampleSubsystem;
@@ -54,6 +55,7 @@ public class RobotContainer {
   private final ShooterSubsystem shooterSubsystem = new ShooterSubsystem();
   private final ShooterCommand shooterCommand = new ShooterCommand(shooterSubsystem);
   
+  private final FireCommand fireCommand = new FireCommand(intakeSubsystem);
 
   // All joystick buttons are defined here
   JoystickButton leftTrigger = new JoystickButton(leftStick, 1);
@@ -117,6 +119,8 @@ public class RobotContainer {
     leftThumbRight
       .whenPressed(new DriveTrainReversedCommand(driveTrainSubsystem));
 
+    leftTrigger
+      .whenPressed(new FireCommand(intakeSubsystem));
     // Rightstick button mappings
     rightTrigger
       .whileHeld(new ActivateIntakeCommand(intakeSubsystem));
