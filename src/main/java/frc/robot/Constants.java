@@ -21,6 +21,8 @@ public final class Constants {
 	public static final double INNER_INTAKE_MOTOR_SPEED = 1;
 	public static final double CONVEYOR_MOTOR_SPEED = .6;
 	public static final double STOP_MOTOR = 0;
+	public static final double SHOOTER_MOTOR_kP = 0.1;
+	public static final double FEED_FORWARD_kF = 0.049;
 
 	public static final double TOF_SAMPLE_TIME = 25;
 }

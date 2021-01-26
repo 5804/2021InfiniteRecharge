@@ -12,7 +12,7 @@ import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 
 import frc.robot.commands.ExampleCommand;
-
+import frc.robot.commands.ShooterCommand;
 import frc.robot.commands.ActivateIntakeCommand;
 import frc.robot.commands.DeactivateIntakeCommand;
 import frc.robot.commands.DriveTrainCommand;
@@ -22,7 +22,7 @@ import frc.robot.commands.DriveWithJoysticksCommand;
 import frc.robot.subsystems.DriveTrainSubsystem;
 import frc.robot.subsystems.ExampleSubsystem;
 import frc.robot.subsystems.IntakeSubsystem;
-
+import frc.robot.subsystems.ShooterSubsystem;
 import edu.wpi.first.wpilibj2.command.Command;
 
 /**
@@ -50,6 +50,9 @@ public class RobotContainer {
   private final IntakeSubsystem intakeSubsystem = new IntakeSubsystem();
   // private final ActivateIntakeCommand activateIntakeCommand = new ActivateIntakeCommand(intakeSubsystem);
   private final DeactivateIntakeCommand deactivateIntakeCommand = new DeactivateIntakeCommand(intakeSubsystem);
+
+  private final ShooterSubsystem shooterSubsystem = new ShooterSubsystem();
+  private final ShooterCommand shooterCommand = new ShooterCommand(shooterSubsystem);
   
 
   // All joystick buttons are defined here
@@ -118,7 +121,9 @@ public class RobotContainer {
     rightTrigger
       .whileHeld(new ActivateIntakeCommand(intakeSubsystem));
       
-    //shooter is the leftthumbmain, to actually fire, hold the lefttrigger
+    //shooter is the rightthumbmain, to actually fire, hold the righttrigger
+    rightThumbMain
+      .whileHeld(new ShooterCommand(shooterSubsystem));
   }
 
 
