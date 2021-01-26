@@ -11,10 +11,8 @@ import com.ctre.phoenix.motorcontrol.ControlMode;
 import com.ctre.phoenix.motorcontrol.can.WPI_TalonFX;
 import com.playingwithfusion.TimeOfFlight;
 import com.playingwithfusion.TimeOfFlight.RangingMode;
-
 import edu.wpi.first.wpilibj.Solenoid;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
-import frc.robot.Constants;
 
 public class IntakeSubsystem extends SubsystemBase {
 
@@ -27,10 +25,10 @@ public class IntakeSubsystem extends SubsystemBase {
   public WPI_TalonFX conveyorMotor;
 
   // Declaring four time of flights
-  public TimeOfFlight timeOfFlight1;
-  public TimeOfFlight timeOfFlight2;
-  public TimeOfFlight timeOfFlight3;
-  public TimeOfFlight timeOfFlight4;
+  public TimeOfFlight timeOfFlight1 = new TimeOfFlight(1);
+  public TimeOfFlight timeOfFlight2 = new TimeOfFlight(2);
+  public TimeOfFlight timeOfFlight3 = new TimeOfFlight(3);
+  public TimeOfFlight timeOfFlight4 = new TimeOfFlight(4);
 
   public IntakeSubsystem() {
     // Inititalizing the outer intake solenoid
@@ -51,17 +49,11 @@ public class IntakeSubsystem extends SubsystemBase {
     innerIntakeMotor.configVoltageCompSaturation(12);
     conveyorMotor.configVoltageCompSaturation(12);
 
-    // Initializing four time of flights
-    timeOfFlight1 = new TimeOfFlight(1);
-    timeOfFlight2 = new TimeOfFlight(2);
-    timeOfFlight3 = new TimeOfFlight(3);
-    timeOfFlight4 = new TimeOfFlight(4);
-
-    // Setting the ranging mode for all of the time of flights to short
+    // Set the mode of Time of Flight Sensors to Short range (less than 1.2 meters and then poll every 25 ms)
     timeOfFlight1.setRangingMode(RangingMode.Short, 25);
     timeOfFlight2.setRangingMode(RangingMode.Short, 25);
     timeOfFlight3.setRangingMode(RangingMode.Short, 25);
-    timeOfFlight4.setRangingMode(RangingMode.Short, 25);
+    timeOfFlight4.setRangingMode(RangingMode.Short, 25); 
   }
 
   @Override
@@ -69,13 +61,14 @@ public class IntakeSubsystem extends SubsystemBase {
     // This method will be called once per scheduler run
   }
 
-  public void activateIntake() {
+  public void activateIntake(double outer, double inner, double conveyor) {
     // extend both pistons
     intakeSolenoid1.set(true);
 
-    // spin the intake motor
-    outerIntakeMotor.set(ControlMode.PercentOutput, Constants.OUTER_INTAKE_MOTOR_SPEED);
-    innerIntakeMotor.set(ControlMode.PercentOutput, Constants.INNER_INTAKE_MOTOR_SPEED);
+    // spin the intake motors
+    outerIntakeMotor.set(ControlMode.PercentOutput, outer);
+    innerIntakeMotor.set(ControlMode.PercentOutput, inner);
+    conveyorMotor.set(ControlMode.PercentOutput, conveyor);
   }
 
   public void deactivateIntake() {

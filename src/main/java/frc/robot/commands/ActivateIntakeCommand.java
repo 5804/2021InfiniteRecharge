@@ -7,6 +7,7 @@
 
 package frc.robot.commands;
 
+
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.subsystems.IntakeSubsystem;
 
@@ -26,12 +27,23 @@ public class ActivateIntakeCommand extends CommandBase {
   // Called when the command is initially scheduled.
   @Override
   public void initialize() {
+    
+ 
+
   }
 
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    intakeSubsystem.activateIntake();
+    if (intakeSubsystem.timeOfFlight1.getRange() >= 110 || intakeSubsystem.timeOfFlight4.getRange() >= 110) {
+      if (intakeSubsystem.timeOfFlight2.getRange() < 100 || intakeSubsystem.timeOfFlight3.getRange() < 100) {
+        intakeSubsystem.activateIntake(0.65, 1, 0.6);
+      } else {
+        intakeSubsystem.activateIntake(0.65, 1, 0);
+      }
+    } else {
+      intakeSubsystem.activateIntake(0.65, 0, 0);
+    }
   }
 
   // Called once the command ends or is interrupted.
