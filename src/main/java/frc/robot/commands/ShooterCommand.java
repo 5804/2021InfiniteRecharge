@@ -24,6 +24,7 @@ public class ShooterCommand extends CommandBase {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
+    // Spin the accelerator and the shooter
     shoot.startUpAccelerator();
     shoot.setShooterSpeed();
   }
@@ -31,6 +32,7 @@ public class ShooterCommand extends CommandBase {
   // Called once the command ends or is interrupted.
   @Override
   public void end(boolean interrupted) {
+    // Stop both the accelerator and the shooter
     shoot.stopShooter();
   }
 
