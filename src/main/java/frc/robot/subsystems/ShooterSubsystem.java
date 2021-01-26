@@ -10,22 +10,24 @@ import com.ctre.phoenix.motorcontrol.can.WPI_TalonFX;
 
 public class ShooterSubsystem extends SubsystemBase {
 
+  // Declare motors for two shooter motors and one accelerator motor
   public WPI_TalonFX rightShooter;
   public WPI_TalonFX leftShooter;
   public WPI_TalonFX acceleratorMotors;
 
-  
-
   /** Creates a new ShooterSubsystem. */
   public ShooterSubsystem() {
+    // Initialize three motors, two for the shooter and one for the accelerator
     leftShooter = new WPI_TalonFX(5);
     rightShooter = new WPI_TalonFX(6);
     acceleratorMotors = new WPI_TalonFX(7);
 
+    // Configure the motors so that they spin in the intended direction
     leftShooter.setInverted(false);
     rightShooter.setInverted(true);
     rightShooter.follow(leftShooter);
 
+    // Further config for the accelerator motors
     acceleratorMotors.enableVoltageCompensation(true);
     acceleratorMotors.configVoltageCompSaturation(12);
   }

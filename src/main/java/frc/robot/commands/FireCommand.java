@@ -11,8 +11,8 @@ public class FireCommand extends CommandBase {
 
   private final IntakeSubsystem intakeSubsystem;
   /** Creates a new FireCommand. */
-  public FireCommand(IntakeSubsystem fire) {
-    intakeSubsystem = fire;
+  public FireCommand(IntakeSubsystem is) {
+    intakeSubsystem = is;
     // Use addRequirements() here to declare subsystem dependencies.
     addRequirements(intakeSubsystem);
   }
@@ -24,12 +24,14 @@ public class FireCommand extends CommandBase {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
+    // Run only the conveyor on the intake subsystem
     intakeSubsystem.fire();
   }
 
   // Called once the command ends or is interrupted.
   @Override
   public void end(boolean interrupted) {
+    // Stop the conveyor once the lefttrigger is released
     intakeSubsystem.fireDeactivate();
   }
 

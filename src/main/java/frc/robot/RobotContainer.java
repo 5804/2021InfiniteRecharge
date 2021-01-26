@@ -120,7 +120,7 @@ public class RobotContainer {
       .whenPressed(new DriveTrainReversedCommand(driveTrainSubsystem));
 
     leftTrigger
-      .whenPressed(new FireCommand(intakeSubsystem));
+      .whileHeld(new FireCommand(intakeSubsystem));
     // Rightstick button mappings
     rightTrigger
       .whileHeld(new ActivateIntakeCommand(intakeSubsystem));
