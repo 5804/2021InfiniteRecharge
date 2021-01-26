@@ -22,15 +22,12 @@ public class ShooterSubsystem extends SubsystemBase {
     rightShooter = new WPI_TalonFX(6);
     acceleratorMotors = new WPI_TalonFX(7);
 
-    leftShooter.setInverted(true);
-
+    leftShooter.setInverted(false);
+    rightShooter.setInverted(true);
     rightShooter.follow(leftShooter);
 
     acceleratorMotors.enableVoltageCompensation(true);
-
     acceleratorMotors.configVoltageCompSaturation(12);
-
-
   }
 
   @Override
@@ -45,6 +42,9 @@ public class ShooterSubsystem extends SubsystemBase {
     leftShooter.set(0.5);
   }
 
-
+  public void stopShooter() {
+    acceleratorMotors.set(0);
+    leftShooter.set(0);
+  }
 
 }
