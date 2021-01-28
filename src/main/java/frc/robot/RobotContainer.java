@@ -53,7 +53,6 @@ public class RobotContainer {
   private final DeactivateIntakeCommand deactivateIntakeCommand = new DeactivateIntakeCommand(intakeSubsystem);
 
   private final ShooterSubsystem shooterSubsystem = new ShooterSubsystem();
-  private final ShooterCommand shooterCommand = new ShooterCommand(shooterSubsystem);
   
   private final FireCommand fireCommand = new FireCommand(intakeSubsystem);
 
@@ -114,9 +113,9 @@ public class RobotContainer {
   private void configureButtonBindings() {
     
     // Leftstick button mappings
-    leftThumbMain
+    rightThumbRight
       .whenPressed(new DriveTrainCommand(driveTrainSubsystem));
-    leftThumbRight
+    rightThumbLeft
       .whenPressed(new DriveTrainReversedCommand(driveTrainSubsystem));
 
     leftTrigger
@@ -126,8 +125,8 @@ public class RobotContainer {
       .whileHeld(new ActivateIntakeCommand(intakeSubsystem));
       
     //shooter is the rightthumbmain, to actually fire, hold the righttrigger
-    rightThumbMain
-      .whileHeld(new ShooterCommand(shooterSubsystem));
+    leftThumbMain
+      .whileHeld(new ShooterCommand(shooterSubsystem, leftStick));
   }
 
 

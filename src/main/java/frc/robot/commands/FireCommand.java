@@ -24,14 +24,14 @@ public class FireCommand extends CommandBase {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    // Run only the conveyor on the intake subsystem
+    // Run only the conveyor and the inner intake
     intakeSubsystem.fire();
   }
 
   // Called once the command ends or is interrupted.
   @Override
   public void end(boolean interrupted) {
-    // Stop the conveyor once the lefttrigger is released
+    // Stop the conveyor and the inner intake once the lefttrigger is released
     intakeSubsystem.fireDeactivate();
   }
 

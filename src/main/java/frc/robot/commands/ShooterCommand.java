@@ -4,15 +4,20 @@
 
 package frc.robot.commands;
 
+import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.subsystems.ShooterSubsystem;
 
 public class ShooterCommand extends CommandBase {
 
   private final ShooterSubsystem shoot;
+
+  private final Joystick leftStick;
   /** Creates a new ShooterCommand. */
-  public ShooterCommand(ShooterSubsystem shootSub) {
+  public ShooterCommand(ShooterSubsystem shootSub, Joystick left) {
     shoot = shootSub;
+
+    leftStick = left;
     // Use addRequirements() here to declare subsystem dependencies.
     addRequirements(shoot);
   }
@@ -24,9 +29,11 @@ public class ShooterCommand extends CommandBase {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    // Spin the accelerator and the shooter
+    // Spin the accelerator and spin the shooter until the velocity is at target value
     shoot.startUpAccelerator();
-    shoot.setShooterSpeed();
+
+    // Get the value of the slider and pass it into the setShooterSpeed method of the shooter subsystem
+    shoot.setShooterSpeed(leftStick.getRawAxis(3));
   }
 
   // Called once the command ends or is interrupted.
