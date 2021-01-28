@@ -28,4 +28,6 @@ public final class Constants {
 	public static final int kPIDLoopIdx = 0;
 
 	public static final Gains kGains_Velocit = new Gains(0.049, 0.1, 0.0, 0.0);
+	public static final double DRIVE_FORWARD_TIME = 3;
+	public static final double AUTONOMOUS_SPEED = .5;
 }

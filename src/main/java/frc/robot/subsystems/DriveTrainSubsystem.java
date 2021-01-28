@@ -8,6 +8,8 @@
 package frc.robot.subsystems;
 
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
+
+import com.ctre.phoenix.motorcontrol.NeutralMode;
 import com.ctre.phoenix.motorcontrol.can.WPI_TalonFX;
 import edu.wpi.first.wpilibj.drive.DifferentialDrive;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
@@ -40,6 +42,11 @@ public class DriveTrainSubsystem extends SubsystemBase {
     leftFollow.follow(leftMain);
     rightFollow.follow(rightMain);
 
+    leftMain.setNeutralMode(NeutralMode.Coast);
+    rightMain.setNeutralMode(NeutralMode.Coast);
+    leftFollow.setNeutralMode(NeutralMode.Coast);
+    rightFollow.setNeutralMode(NeutralMode.Coast);
+
     twoMotorDrive = new DifferentialDrive(leftMain, rightMain);
   }
 
@@ -63,6 +70,10 @@ public class DriveTrainSubsystem extends SubsystemBase {
     } else {
       twoMotorDrive.tankDrive(-right, -left);
     }
+  }
+
+  public void driveForward(double left, double right) {
+    twoMotorDrive.tankDrive(left, right);
   }
 
 }

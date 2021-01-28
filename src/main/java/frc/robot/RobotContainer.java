@@ -10,14 +10,6 @@ package frc.robot;
 import edu.wpi.first.wpilibj.GenericHID;
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
-
-import frc.robot.commands.ExampleCommand;
-import frc.robot.commands.ShooterCommand;
-import frc.robot.commands.ActivateIntakeCommand;
-import frc.robot.commands.DeactivateIntakeCommand;
-import frc.robot.commands.DriveTrainCommand;
-import frc.robot.commands.DriveTrainReversedCommand;
-import frc.robot.commands.DriveWithJoysticksCommand;
 import frc.robot.commands.*;
 
 import frc.robot.subsystems.DriveTrainSubsystem;
@@ -53,8 +45,7 @@ public class RobotContainer {
   private final DeactivateIntakeCommand deactivateIntakeCommand = new DeactivateIntakeCommand(intakeSubsystem);
 
   private final ShooterSubsystem shooterSubsystem = new ShooterSubsystem();
-  
-  private final FireCommand fireCommand = new FireCommand(intakeSubsystem);
+
 
   // All joystick buttons are defined here
   JoystickButton leftTrigger = new JoystickButton(leftStick, 1);
@@ -99,7 +90,7 @@ public class RobotContainer {
     // Configure the button bindings
     configureButtonBindings();
     driveTrainSubsystem.setDefaultCommand(driveWithJoysticksCommand);
-
+ 
     // if there are no commands running on the intake, the intake will be deactivated
     intakeSubsystem.setDefaultCommand(deactivateIntakeCommand);
   }
@@ -137,6 +128,6 @@ public class RobotContainer {
    */
   public Command getAutonomousCommand() {
     // An ExampleCommand will run in autonomous
-    return m_autoCommand;
+    return new DriveForwardTimed(driveTrainSubsystem);
   }
 }
