@@ -30,4 +30,9 @@ public final class Constants {
 	public static final Gains kGains_Velocit = new Gains(0.049, 0.1, 0.0, 0.0);
 	public static final double DRIVE_FORWARD_TIME = 3;
 	public static final double AUTONOMOUS_SPEED = .5;
+
+	public static final double STEER_K = 0.03;
+	public static final double DRIVE_K = 0.26;
+	public static final double DESIRED_TARGET_AREA = 13.0;
+	public static final double MAX_DRIVE = 0.7;
 }

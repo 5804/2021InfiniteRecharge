@@ -86,9 +86,11 @@ public class ShooterSubsystem extends SubsystemBase {
 
   public void setShooterSpeed(double slider) {
     // Getting the value of the slider and adjust the velocity of the shooter accordingly
+    // The slider goes from -1 to 1, and the math scales it from 0 to 1, then multiply by 5000 to get the 
+    // ticks per 100ms to add to the base target velocity
     sliderAddTargetVelocity = (((slider*-1) + 1)/2)*5000;
 
-    // Set the target velocity equal to 15000 plus the calculation above
+    // The setpoint for the shooter is equal to the base target velocity plus the velocity added by the slider
     targetVelocity = initialTargetVelocity + sliderAddTargetVelocity;
 
     leftShooter.set(TalonFXControlMode.Velocity, targetVelocity);

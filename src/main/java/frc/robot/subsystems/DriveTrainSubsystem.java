@@ -72,6 +72,10 @@ public class DriveTrainSubsystem extends SubsystemBase {
     }
   }
 
+  public void driveWithArcade(double speed, double rotation) {
+    twoMotorDrive.arcadeDrive(speed, rotation);
+  }
+
   public void driveForward(double left, double right) {
     twoMotorDrive.tankDrive(left, right);
   }
