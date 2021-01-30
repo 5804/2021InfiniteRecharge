@@ -80,6 +80,7 @@ public class ShooterSubsystem extends SubsystemBase {
     // Add the sliderAddTargetVelocity number to the smartdashboard
     SmartDashboard.putNumber("Slider Add Target Velocity", sliderAddTargetVelocity);
   }
+
   public void startUpAccelerator() {
     acceleratorMotors.set(1.0);
   }
@@ -101,6 +102,11 @@ public class ShooterSubsystem extends SubsystemBase {
 
     leftShooter.set(TalonFXControlMode.Velocity, 6000);
 
+  }
+
+  public void setSpeedFromDashboard() {
+    double dashVelocity = SmartDashboard.getNumber("Velocity Setpoint", 15000);
+    leftShooter.set(TalonFXControlMode.Velocity, dashVelocity);
   }
 
   public void stopShooter() {

@@ -46,6 +46,7 @@ public class RobotContainer {
 
   private final ShooterSubsystem shooterSubsystem = new ShooterSubsystem();
   private final ShooterIdleCommand shooterIdleCommand = new ShooterIdleCommand(shooterSubsystem);
+  private final ShooterDashVelocityCommand shooterDashVelocityCommand = new ShooterDashVelocityCommand(shooterSubsystem);
 
 
   // All joystick buttons are defined here
@@ -120,6 +121,8 @@ public class RobotContainer {
     //shooter is the rightthumbmain, to actually fire, hold the righttrigger
     leftThumbMain
       .whileHeld(new ShooterCommand(shooterSubsystem, leftStick));
+    leftThumbRight
+      .whileHeld(new ShooterDashVelocityCommand(shooterSubsystem));
   }
 
 
