@@ -45,6 +45,7 @@ public class RobotContainer {
   private final DeactivateIntakeCommand deactivateIntakeCommand = new DeactivateIntakeCommand(intakeSubsystem);
 
   private final ShooterSubsystem shooterSubsystem = new ShooterSubsystem();
+  private final ShooterIdleCommand shooterIdleCommand = new ShooterIdleCommand(shooterSubsystem);
 
 
   // All joystick buttons are defined here
@@ -93,6 +94,7 @@ public class RobotContainer {
  
     // if there are no commands running on the intake, the intake will be deactivated
     intakeSubsystem.setDefaultCommand(deactivateIntakeCommand);
+    shooterSubsystem.setDefaultCommand(shooterIdleCommand);
   }
 
   /**
