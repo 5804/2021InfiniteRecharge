@@ -34,8 +34,8 @@ public class ShooterSubsystem extends SubsystemBase {
     acceleratorMotors = new WPI_TalonFX(7);
 
     // Configure the motors so that they spin in the intended direction
-    leftShooter.setInverted(TalonFXInvertType.Clockwise);
-    rightShooter.setInverted(TalonFXInvertType.CounterClockwise);
+    leftShooter.setInverted(TalonFXInvertType.CounterClockwise);
+    rightShooter.setInverted(TalonFXInvertType.Clockwise);
     rightShooter.follow(leftShooter);
 
     // Configuring the factory default for all motors
@@ -68,13 +68,12 @@ public class ShooterSubsystem extends SubsystemBase {
     acceleratorMotors.enableVoltageCompensation(true);
     acceleratorMotors.configVoltageCompSaturation(12);
 
-
+    SmartDashboard.putNumber("Velocity Setpoint", targetVelocity);
   }
 
   @Override
   public void periodic() {
     // This method will be called once per scheduler run
-    SmartDashboard.putNumber("Velocity Setpoint", targetVelocity);
     SmartDashboard.putNumber("Actual Velocity", leftShooter.getSelectedSensorVelocity());
 
     // Add the sliderAddTargetVelocity number to the smartdashboard
@@ -105,7 +104,7 @@ public class ShooterSubsystem extends SubsystemBase {
   }
 
   public void setSpeedFromDashboard() {
-    double dashVelocity = SmartDashboard.getNumber("Velocity Setpoint", 15000);
+    double dashVelocity = SmartDashboard.getNumber("Velocity Setpoint", 2000);
     leftShooter.set(TalonFXControlMode.Velocity, dashVelocity);
   }
 

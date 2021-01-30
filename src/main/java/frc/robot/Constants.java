@@ -35,4 +35,7 @@ public final class Constants {
 	public static final double DRIVE_K = 0.26;
 	public static final double DESIRED_TARGET_AREA = 13.0;
 	public static final double MAX_DRIVE = 0.7;
+
+	public static final double LIMELIGHT_DEADBAND = 1;
+	public static final double MIN_STEER_K = .4;
 }
