@@ -11,12 +11,13 @@ import edu.wpi.first.wpilibj.GenericHID;
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 import frc.robot.commands.*;
-
+import frc.robot.commands.commandGroups.AimAndShooterMotorCommandGroup;
 import frc.robot.subsystems.DriveTrainSubsystem;
 import frc.robot.subsystems.ExampleSubsystem;
 import frc.robot.subsystems.IntakeSubsystem;
 import frc.robot.subsystems.ShooterSubsystem;
 import edu.wpi.first.wpilibj2.command.Command;
+import frc.robot.subsystems.LimelightSubsystem;
 
 /**
  * This class is where the bulk of the robot should be declared.  Since Command-based is a
@@ -35,6 +36,7 @@ public class RobotContainer {
 
   // Drivetrain subsystem and commands
   private final DriveTrainSubsystem driveTrainSubsystem = new DriveTrainSubsystem();
+  private final LimelightSubsystem limelightSubsystem = new LimelightSubsystem();
   // private final DriveTrainCommand driveTrainCommand = new DriveTrainCommand(driveTrainSubsystem);
   // private final DriveTrainReversedCommand driveTrainReversedCommand = new DriveTrainReversedCommand(driveTrainSubsystem);
   private final DriveWithJoysticksCommand driveWithJoysticksCommand = new DriveWithJoysticksCommand(driveTrainSubsystem, leftStick, rightStick);
@@ -47,6 +49,9 @@ public class RobotContainer {
   private final ShooterSubsystem shooterSubsystem = new ShooterSubsystem();
   private final ShooterIdleCommand shooterIdleCommand = new ShooterIdleCommand(shooterSubsystem);
   private final ShooterDashVelocityCommand shooterDashVelocityCommand = new ShooterDashVelocityCommand(shooterSubsystem);
+
+  
+
 
 
   // All joystick buttons are defined here
@@ -120,7 +125,7 @@ public class RobotContainer {
       
     //shooter is the rightthumbmain, to actually fire, hold the righttrigger
     leftThumbMain
-      .whileHeld(new ShooterCommand(shooterSubsystem, leftStick));
+      .whileHeld(new AimAndShooterMotorCommandGroup(shooterSubsystem, leftStick, limelightSubsystem, driveTrainSubsystem));
     leftThumbRight
       .whileHeld(new ShooterDashVelocityCommand(shooterSubsystem));
   }
