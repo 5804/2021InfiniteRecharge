@@ -38,4 +38,7 @@ public final class Constants {
 
 	public static final double LIMELIGHT_DEADBAND = 1;
 	public static final double MIN_STEER_K = .4;
+
+	public static final double MAX_PROFILED_VELOCITY = 5;
+	public static final double MAX_PROFILED_ACCELERATION = 5;
 }
