@@ -1,6 +1,6 @@
 plugins {
     id "java"
-    id "edu.wpi.first.GradleRIO" version "2021.2.2"
+    id "edu.wpi.first.GradleRIO" version "2021.2.1"
 }
 
 sourceCompatibility = JavaVersion.VERSION_11
@@ -62,7 +62,6 @@ dependencies {
     // Websocket extensions require additional configuration.
     // simulation wpi.deps.sim.ws_server(wpi.platforms.desktop, false)
     // simulation wpi.deps.sim.ws_client(wpi.platforms.desktop, false)
-    compile 'com.github.Team319:BobTrajectory:v2.1.0'
 }
 
 // Simulation configuration (e.g. environment variables).
@@ -78,9 +77,3 @@ jar {
     from { configurations.runtimeClasspath.collect { it.isDirectory() ? it : zipTree(it) } }
     manifest edu.wpi.first.gradlerio.GradleRIOPlugin.javaManifest(ROBOT_MAIN_CLASS)
 }
-
-repositories {
-      jcenter()
-      maven { url "https://jitpack.io" }
-      }
-    
