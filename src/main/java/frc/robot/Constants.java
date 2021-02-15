@@ -38,4 +38,14 @@ public final class Constants {
 
 	public static final double LIMELIGHT_DEADBAND = 1;
 	public static final double MIN_STEER_K = .4;
+
+	public static final double ENCODER_DISTANCE_METERS_PER_PULSE = (.1524 * 3.14159265)/29020.16;
+
+
+	public static final double DRIVE_TRAIN_WIDTH = .7112;
+	public static final double GEAR_RATIO = 14.17;
+	public static final double WHEEL_RADIUS = .0762;
+
+	public static final double ks = 0.0;
+	public static final double kv = 0.0;
 }

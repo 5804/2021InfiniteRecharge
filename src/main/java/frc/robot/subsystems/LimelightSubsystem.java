@@ -8,6 +8,7 @@
 package frc.robot.subsystems;
 
 import edu.wpi.first.networktables.*;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants;
 
@@ -23,6 +24,12 @@ public class LimelightSubsystem extends SubsystemBase {
   @Override
   public void periodic() {
     // This method will be called once per scheduler run
+
+    double tx = NetworkTableInstance.getDefault().getTable("limelight").getEntry("tx").getDouble(0);
+    SmartDashboard.putNumber("tx", tx);
+
+    double tv = NetworkTableInstance.getDefault().getTable("limelight").getEntry("tv").getDouble(0);
+    SmartDashboard.putBoolean("tv", tv >= 1.0);
   }
 
   public double getSteeringValue() {
@@ -37,18 +44,19 @@ public class LimelightSubsystem extends SubsystemBase {
     // double ty = NetworkTableInstance.getDefault().getTable("limelight").getEntry("ty").getDouble(0);
     // double ta = NetworkTableInstance.getDefault().getTable("limelight").getEntry("ta").getDouble(0);
 
+    double signumtx = Math.signum(tx);
+
     if (isTargetValid() == false) {
       return 0.0;
     }
 
-    tx = Math.abs(tx);
-    tx = tx - Constants.LIMELIGHT_DEADBAND;
+    double txAbs = Math.abs(tx);
+    double txDeadband = txAbs - Constants.LIMELIGHT_DEADBAND;
 
-    if (tx < 0) {
+    if (txDeadband < 0) {
       return 0.0;
     } 
 
-    double signumtx = Math.signum(tx);
     double minDriveWithSine = signumtx * Constants.MIN_STEER_K;
     double steer_cmd = tx * STEER_K;
     double finalSteerCmd = minDriveWithSine + steer_cmd;
@@ -61,20 +69,20 @@ public class LimelightSubsystem extends SubsystemBase {
     return tv >= 1.0;
   }
 
-  public boolean isAligned() {
-    double tx = NetworkTableInstance.getDefault().getTable("limelight").getEntry("tx").getDouble(0);
+  // public boolean isAligned() {
+  //   // double tx = NetworkTableInstance.getDefault().getTable("limelight").getEntry("tx").getDouble(0);
 
-    if (isTargetValid() == false) {
-      return true;
-    }
+  //   if (isTargetValid() == false) {
+  //     return true;
+  //   }
 
-    tx = Math.abs(tx);
-    tx = tx - Constants.LIMELIGHT_DEADBAND;
+  //   // tx = Math.abs(tx);
+  //   // tx = tx - Constants.LIMELIGHT_DEADBAND;
 
-    if (tx < 0) {
-      return true;
-    } 
+  //   // if (tx < 0) {
+  //   //   return true;
+  //   // } 
 
-    return false;
-  }
+  //   return false;
+  // }
 }

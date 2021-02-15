@@ -7,8 +7,15 @@
 
 package frc.robot;
 
+import java.util.Arrays;
+
 import edu.wpi.first.wpilibj.GenericHID;
 import edu.wpi.first.wpilibj.Joystick;
+import edu.wpi.first.wpilibj.controller.RamseteController;
+import edu.wpi.first.wpilibj.geometry.Pose2d;
+import edu.wpi.first.wpilibj.trajectory.Trajectory;
+import edu.wpi.first.wpilibj.trajectory.TrajectoryConfig;
+import edu.wpi.first.wpilibj.trajectory.TrajectoryGenerator;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 import frc.robot.commands.*;
 import frc.robot.commands.commandGroups.AimAndShooterMotorCommandGroup;
@@ -17,6 +24,7 @@ import frc.robot.subsystems.ExampleSubsystem;
 import frc.robot.subsystems.IntakeSubsystem;
 import frc.robot.subsystems.ShooterSubsystem;
 import edu.wpi.first.wpilibj2.command.Command;
+import edu.wpi.first.wpilibj2.command.RamseteCommand;
 import frc.robot.subsystems.LimelightSubsystem;
 
 /**
@@ -50,7 +58,6 @@ public class RobotContainer {
   private final ShooterIdleCommand shooterIdleCommand = new ShooterIdleCommand(shooterSubsystem);
   private final ShooterDashVelocityCommand shooterDashVelocityCommand = new ShooterDashVelocityCommand(shooterSubsystem);
 
-  
 
 
 
@@ -128,6 +135,9 @@ public class RobotContainer {
       .whileHeld(new AimAndShooterMotorCommandGroup(shooterSubsystem, leftStick, limelightSubsystem, driveTrainSubsystem));
     leftThumbRight
       .whileHeld(new ShooterDashVelocityCommand(shooterSubsystem));
+
+    rightThumbMain
+      .whenPressed(new ResetEncoderCommand(driveTrainSubsystem));
   }
 
 
@@ -137,7 +147,30 @@ public class RobotContainer {
    * @return the command to run in autonomous
    */
   public Command getAutonomousCommand() {
-    // An ExampleCommand will run in autonomous
-    return new DriveForwardTimed(driveTrainSubsystem);
+
+  //   TrajectoryConfig config = new TrajectoryConfig(1, 1);
+
+  //   config.setKinematics(driveTrainSubsystem.getKinematics());
+    
+  //   Trajectory trajectory = TrajectoryGenerator.generateTrajectory(
+  //     Arrays.asList(new Pose2d(), new Pose2d(1.0, 0.0, new Rotation2d())),
+  //     config
+  //   );
+
+  //   RamseteCommand command = new RamseteCommand(
+  //     trajectory, 
+  //     driveTrainSubsystem::getPose,
+  //     new RamseteController(2, 0.7),
+  //     driveTrainSubsystem.getFeedForward(),
+  //     driveTrainSubsystem.getKinematics(),
+  //     driveTrainSubsystem::getSpeeds,
+  //     driveTrainSubsystem.getLeftPIDController(),
+  //     driveTrainSubsystem.getRightPIDController(),
+  //     driveTrainSubsystem::setOutput,
+  //     driveTrainSubsystem
+  //   );
+
+  //   return command;
+  return new DriveForwardTimed(driveTrainSubsystem);
   }
 }
