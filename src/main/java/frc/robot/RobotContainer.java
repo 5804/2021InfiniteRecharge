@@ -13,6 +13,8 @@ import edu.wpi.first.wpilibj.GenericHID;
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.controller.RamseteController;
 import edu.wpi.first.wpilibj.geometry.Pose2d;
+import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj.trajectory.Trajectory;
 import edu.wpi.first.wpilibj.trajectory.TrajectoryConfig;
 import edu.wpi.first.wpilibj.trajectory.TrajectoryGenerator;
@@ -59,9 +61,12 @@ public class RobotContainer {
   private final ShooterIdleCommand shooterIdleCommand = new ShooterIdleCommand(shooterSubsystem);
   private final ShooterDashVelocityCommand shooterDashVelocityCommand = new ShooterDashVelocityCommand(shooterSubsystem);
 
+  private final DriveAndShootCommandGroup autonomousFromLineCommand = new DriveAndShootCommandGroup(driveTrainSubsystem, shooterSubsystem, leftStick, limelightSubsystem);
 
+  private final FireCommand fireCommand = new FireCommand(intakeSubsystem);
 
-
+  SendableChooser<Command> sendableChooser = new SendableChooser<>();
+  
   // All joystick buttons are defined here
   JoystickButton leftTrigger = new JoystickButton(leftStick, 1);
   JoystickButton leftThumbMain = new JoystickButton(leftStick, 2);
@@ -109,6 +114,11 @@ public class RobotContainer {
     // if there are no commands running on the intake, the intake will be deactivated
     intakeSubsystem.setDefaultCommand(deactivateIntakeCommand);
     shooterSubsystem.setDefaultCommand(shooterIdleCommand);
+
+    sendableChooser.setDefaultOption("Drive and Shooting", autonomousFromLineCommand);
+    sendableChooser.addOption("Fire", fireCommand);
+
+    SmartDashboard.putData(sendableChooser);
   }
 
   /**
@@ -151,30 +161,6 @@ public class RobotContainer {
    * @return the command to run in autonomous
    */
   public Command getAutonomousCommand() {
-
-  //   TrajectoryConfig config = new TrajectoryConfig(1, 1);
-
-  //   config.setKinematics(driveTrainSubsystem.getKinematics());
-    
-  //   Trajectory trajectory = TrajectoryGenerator.generateTrajectory(
-  //     Arrays.asList(new Pose2d(), new Pose2d(1.0, 0.0, new Rotation2d())),
-  //     config
-  //   );
-
-  //   RamseteCommand command = new RamseteCommand(
-  //     trajectory, 
-  //     driveTrainSubsystem::getPose,
-  //     new RamseteController(2, 0.7),
-  //     driveTrainSubsystem.getFeedForward(),
-  //     driveTrainSubsystem.getKinematics(),
-  //     driveTrainSubsystem::getSpeeds,
-  //     driveTrainSubsystem.getLeftPIDController(),
-  //     driveTrainSubsystem.getRightPIDController(),
-  //     driveTrainSubsystem::setOutput,
-  //     driveTrainSubsystem
-  //   );
-
-  //   return command;
-  return new DriveForwardTimed(driveTrainSubsystem);
+    return sendableChooser.getSelected();
   }
 }
