@@ -19,6 +19,7 @@ import edu.wpi.first.wpilibj.trajectory.TrajectoryGenerator;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 import frc.robot.commands.*;
 import frc.robot.commands.commandGroups.AimAndShooterMotorCommandGroup;
+import frc.robot.commands.commandGroups.DriveAndShootCommandGroup;
 import frc.robot.subsystems.DriveTrainSubsystem;
 import frc.robot.subsystems.ExampleSubsystem;
 import frc.robot.subsystems.IntakeSubsystem;
@@ -138,6 +139,9 @@ public class RobotContainer {
 
     rightThumbMain
       .whenPressed(new ResetEncoderCommand(driveTrainSubsystem));
+
+    leftLeftArrayBL
+      .whenPressed(new DriveAndShootCommandGroup(driveTrainSubsystem, shooterSubsystem, leftStick, limelightSubsystem));
   }
 
 

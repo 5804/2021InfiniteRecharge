@@ -184,7 +184,7 @@ public class DriveTrainSubsystem extends SubsystemBase {
   }
 
   public double getAverageEncoderDistance() {
-    return (getMotorPositionsInMeters(leftMain) + getMotorPositionsInMeters(rightMain)) / 2.0;
+    return (getMotorPositionsInMeters(leftMain) + (-1 * getMotorPositionsInMeters(rightMain))) / 2.0;
   }
 
   public void setMaxOutput(double maxOutput) {
