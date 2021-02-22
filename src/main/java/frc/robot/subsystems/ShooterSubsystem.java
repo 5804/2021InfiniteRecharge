@@ -21,7 +21,7 @@ public class ShooterSubsystem extends SubsystemBase {
   public WPI_TalonFX leftShooter;
   public WPI_TalonFX acceleratorMotors;
 
-  public double initialTargetVelocity = 15000.0;
+  public double initialTargetVelocity = 10000.0;
   public double sliderAddTargetVelocity;
   public double targetVelocity;
 
