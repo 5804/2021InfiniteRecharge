@@ -5,7 +5,7 @@
 /* the project.                                                               */
 /*----------------------------------------------------------------------------*/
 
-package frc.robot;
+pacKAge frc.robot;
 
 import edu.wpi.first.wpilibj.kinematics.DifferentialDriveKinematics;
 import edu.wpi.first.wpilibj.util.Units;
@@ -49,20 +49,22 @@ public final class Constants {
 	public static final double GEAR_RATIO = 14.17;
 	public static final double WHEEL_RADIUS = .0762;
 
-	public static final double ks = 0.0;
-	public static final double kv = 0.0;
+	public static final double KS = 0.647;
+	public static final double KV = 0.961;
+	public static final double KA = 0.0984;
+	// r^2 .999
 
 	public static final double ksVolts = 0.0;
 	public static final double kvVoltSecondsPerMeter = 0.0;
-	public static final double kaVoltSecondsSquaredPerMeter = 0.0;
+	public static final double KAVoltSecondsSquaredPerMeter = 0.0;
 
-	public static final DifferentialDriveKinematics kDriveKinematics = new DifferentialDriveKinematics(Units.inchesToMeters(26.625));
+	public static final DifferentialDriveKinematics K_DRIVE_KINEMATICS = new DifferentialDriveKinematics(Units.inchesToMeters(26.625));
 
 	public static final double kMaxSpeedMetersPerSecond = 0.0;
 	public static final double kMaxAccelerationMetersPerSecondSquared = 0.0;
 
 	public static final double kRamseteB = 0.0;
 	public static final double kRamseteZeta = 0.0;
-	public static final double kPDriveVel = 0.0;
+	public static final double KP = 2.33;
 
 }
