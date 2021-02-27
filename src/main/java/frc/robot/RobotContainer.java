@@ -51,6 +51,7 @@ public class RobotContainer {
   // private final DriveTrainCommand driveTrainCommand = new DriveTrainCommand(driveTrainSubsystem);
   // private final DriveTrainReversedCommand driveTrainReversedCommand = new DriveTrainReversedCommand(driveTrainSubsystem);
   private final DriveWithJoysticksCommand driveWithJoysticksCommand = new DriveWithJoysticksCommand(driveTrainSubsystem, leftStick, rightStick);
+  private final DriveWithArcadeCommand driveWithArcadeCommand = new DriveWithArcadeCommand(driveTrainSubsystem, rightStick);
 
   // Intake subsystem and commands
   private final IntakeSubsystem intakeSubsystem = new IntakeSubsystem();
@@ -109,7 +110,7 @@ public class RobotContainer {
 
     // Configure the button bindings
     configureButtonBindings();
-    driveTrainSubsystem.setDefaultCommand(driveWithJoysticksCommand);
+    driveTrainSubsystem.setDefaultCommand(driveWithArcadeCommand);
  
     // if there are no commands running on the intake, the intake will be deactivated
     intakeSubsystem.setDefaultCommand(deactivateIntakeCommand);
