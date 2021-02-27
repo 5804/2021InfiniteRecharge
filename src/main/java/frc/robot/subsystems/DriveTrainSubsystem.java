@@ -104,7 +104,7 @@ public class DriveTrainSubsystem extends SubsystemBase {
     //SmartDashboard.putNumber("Rotation 2d (Yaw)", )
 
   
-    odometry.update(getHeading(), -1*getMotorPositionsInMeters(leftMain), getMotorPositionsInMeters(rightMain));resetEncoders();
+    odometry.update(getHeading(), -1*getMotorPositionsInMeters(leftMain), getMotorPositionsInMeters(rightMain));
     resetEncoders(); 
   }
 

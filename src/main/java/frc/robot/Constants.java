@@ -49,9 +49,10 @@ public final class Constants {
 	public static final double GEAR_RATIO = 14.17;
 	public static final double WHEEL_RADIUS = .0762;
 
-	public static final double KS = 0.647 * 3.28084;
-	public static final double KV = 0.961 * 3.28084;
-	public static final double KA = 0.0984 * 3.28084;
+	// TODO: this might be in feet, could have to put in meters
+	public static final double KS = 0.647;
+	public static final double KV = 0.961;
+	public static final double KA = 0.0984;
 	// r^2 .999
 
 	public static final double KAVoltSecondsSquaredPerMeter = 0.0;
@@ -59,7 +60,7 @@ public final class Constants {
 	public static final DifferentialDriveKinematics K_DRIVE_KINEMATICS = new DifferentialDriveKinematics(Units.inchesToMeters(26.625));
 
 	public static final double kMaxSpeedMetersPerSecond = 5.0;
-	public static final double kMaxAccelerationMetersPerSecondSquared = 2.0;
+	public static final double kMaxAccelerationMetersPerSecondSquared = 5.0;
 
 	public static final double kRamseteB = 0.0;
 	public static final double kRamseteZeta = 0.0;

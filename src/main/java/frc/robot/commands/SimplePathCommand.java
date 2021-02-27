@@ -26,7 +26,7 @@ import java.util.List;
 public class SimplePathCommand extends RamseteCommand {
 
   private final DriveTrainSubsystem driveTrainSubsystem;
-  
+
   /** Creates a new SimplePathCommand. */
   public SimplePathCommand(DriveTrainSubsystem driveTrainSubsystem, Trajectory exampleTrajectory) {
 
