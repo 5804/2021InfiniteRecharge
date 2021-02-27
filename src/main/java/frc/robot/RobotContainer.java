@@ -12,12 +12,15 @@ import java.util.Arrays;
 import edu.wpi.first.wpilibj.GenericHID;
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.controller.RamseteController;
+import edu.wpi.first.wpilibj.controller.SimpleMotorFeedforward;
 import edu.wpi.first.wpilibj.geometry.Pose2d;
+import edu.wpi.first.wpilibj.geometry.Translation2d;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj.trajectory.Trajectory;
 import edu.wpi.first.wpilibj.trajectory.TrajectoryConfig;
 import edu.wpi.first.wpilibj.trajectory.TrajectoryGenerator;
+import edu.wpi.first.wpilibj.trajectory.constraint.DifferentialDriveVoltageConstraint;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 import frc.robot.commands.*;
 import frc.robot.commands.commandGroups.AimAndRunShooterMotorCommandGroup;
@@ -29,6 +32,11 @@ import frc.robot.subsystems.ShooterSubsystem;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.RamseteCommand;
 import frc.robot.subsystems.LimelightSubsystem;
+import static frc.robot.Constants.*;
+import edu.wpi.first.wpilibj.geometry.Pose2d;
+import edu.wpi.first.wpilibj.geometry.Rotation2d;
+import edu.wpi.first.wpilibj.geometry.Translation2d;
+import java.util.List;
 
 /**
  * This class is where the bulk of the robot should be declared.  Since Command-based is a
@@ -46,7 +54,7 @@ public class RobotContainer {
   private final ExampleCommand m_autoCommand = new ExampleCommand(m_exampleSubsystem);
 
   // Drivetrain subsystem and commands
-  private final DriveTrainSubsystem driveTrainSubsystem = new DriveTrainSubsystem();
+  public final DriveTrainSubsystem driveTrainSubsystem = new DriveTrainSubsystem();
   private final LimelightSubsystem limelightSubsystem = new LimelightSubsystem();
   // private final DriveTrainCommand driveTrainCommand = new DriveTrainCommand(driveTrainSubsystem);
   // private final DriveTrainReversedCommand driveTrainReversedCommand = new DriveTrainReversedCommand(driveTrainSubsystem);
@@ -67,6 +75,38 @@ public class RobotContainer {
   private final FireIntakeCommand fireCommand = new FireIntakeCommand(intakeSubsystem);
 
   SendableChooser<Command> sendableChooser = new SendableChooser<>();
+
+  // Ramsete Command Setup
+  DifferentialDriveVoltageConstraint autoVoltageConstraint = new DifferentialDriveVoltageConstraint(
+    new SimpleMotorFeedforward(KS, KV, KA), K_DRIVE_KINEMATICS, 10);
+
+  TrajectoryConfig config = new TrajectoryConfig(
+    kMaxSpeedMetersPerSecond,
+    kMaxAccelerationMetersPerSecondSquared)
+  // Add kinematics to ensure max speed is actually obeyed
+  .setKinematics(K_DRIVE_KINEMATICS)
+  // Apply the voltage constraint
+  .addConstraint(autoVoltageConstraint);
+
+  Trajectory exampleTrajectory = TrajectoryGenerator.generateTrajectory(
+    // Start at the origin facing the +X direction
+    new Pose2d(0, 0, new Rotation2d(0)),
+    // Pass through these two interior waypoints, making an 's' curve path
+    List.of(
+        new Translation2d(1, 1),
+        new Translation2d(2, -1)
+    ),
+    // End 3 meters straight ahead of where we started, facing forward
+    new Pose2d(3, 0, new Rotation2d(0)),
+    // Pass config
+    config
+);
+
+
+  private final SimplePathCommand simplePathCommand = new SimplePathCommand(
+    driveTrainSubsystem,
+    exampleTrajectory
+  );
   
   // All joystick buttons are defined here
   JoystickButton leftTrigger = new JoystickButton(leftStick, 1);
@@ -116,7 +156,8 @@ public class RobotContainer {
     intakeSubsystem.setDefaultCommand(deactivateIntakeCommand);
     shooterSubsystem.setDefaultCommand(shooterIdleCommand);
 
-    sendableChooser.setDefaultOption("Drive and Shooting", autonomousFromLineCommand);
+    sendableChooser.setDefaultOption("Simple Path", simplePathCommand);
+    sendableChooser.addOption("Drive and Shooting", autonomousFromLineCommand);
     sendableChooser.addOption("Fire", fireCommand);
 
     SmartDashboard.putData(sendableChooser);
@@ -153,6 +194,9 @@ public class RobotContainer {
 
     leftLeftArrayBL
       .whenPressed(new DriveAndShootCommandGroup(driveTrainSubsystem, shooterSubsystem, leftStick, limelightSubsystem));
+    
+    leftLeftArrayBR
+      .whenPressed(simplePathCommand);
   }
 
 

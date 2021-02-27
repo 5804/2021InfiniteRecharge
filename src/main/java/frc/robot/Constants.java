@@ -44,25 +44,25 @@ public final class Constants {
 
 	public static final double ENCODER_DISTANCE_METERS_PER_PULSE = (.1524 * 3.14159265)/29020.16;
 
-
-	public static final double DRIVE_TRAIN_WIDTH = .7112;
+    // .675 trackwidth
+	public static final double DRIVE_TRAIN_WIDTH = .675;
 	public static final double GEAR_RATIO = 14.17;
 	public static final double WHEEL_RADIUS = .0762;
 
-	public static final double KS = 0.647;
-	public static final double KV = 0.961;
-	public static final double KA = 0.0984;
+	public static final double KS = 0.647 * 3.28084;
+	public static final double KV = 0.961 * 3.28084;
+	public static final double KA = 0.0984 * 3.28084;
 	// r^2 .999
 
 	public static final double KAVoltSecondsSquaredPerMeter = 0.0;
 
 	public static final DifferentialDriveKinematics K_DRIVE_KINEMATICS = new DifferentialDriveKinematics(Units.inchesToMeters(26.625));
 
-	public static final double kMaxSpeedMetersPerSecond = 0.0;
-	public static final double kMaxAccelerationMetersPerSecondSquared = 0.0;
+	public static final double kMaxSpeedMetersPerSecond = 5.0;
+	public static final double kMaxAccelerationMetersPerSecondSquared = 2.0;
 
 	public static final double kRamseteB = 0.0;
 	public static final double kRamseteZeta = 0.0;
-	public static final double KP = 2.33;
+	public static final double KP = 1;
 
 }

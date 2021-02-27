@@ -66,10 +66,10 @@ public class DriveTrainSubsystem extends SubsystemBase {
     leftFollow.follow(leftMain);
     rightFollow.follow(rightMain);
 
-    leftMain.setNeutralMode(NeutralMode.Coast);
-    rightMain.setNeutralMode(NeutralMode.Coast);
-    leftFollow.setNeutralMode(NeutralMode.Coast);
-    rightFollow.setNeutralMode(NeutralMode.Coast);
+    leftMain.setNeutralMode(NeutralMode.Brake);
+    rightMain.setNeutralMode(NeutralMode.Brake);
+    leftFollow.setNeutralMode(NeutralMode.Brake);
+    rightFollow.setNeutralMode(NeutralMode.Brake);
 
     twoMotorDrive = new DifferentialDrive(leftMain, rightMain);
 
@@ -87,15 +87,14 @@ public class DriveTrainSubsystem extends SubsystemBase {
     SmartDashboard.putNumber("Left Position", leftMain.getSelectedSensorPosition());
     SmartDashboard.putNumber("Right Position", rightMain.getSelectedSensorPosition());
 
-    SmartDashboard.putNumber("Left Velocity", leftMain.getSelectedSensorVelocity());
-    SmartDashboard.putNumber("Right Velocity", rightMain.getSelectedSensorVelocity());
-
 
     SmartDashboard.putNumber("Distance (meters)", (leftMain.getSelectedSensorPosition()*(ENCODER_DISTANCE_METERS_PER_PULSE)));
-
+    SmartDashboard.putNumber("Left Distance (meters)", -1*getMotorPositionsInMeters(leftMain));
+    SmartDashboard.putNumber("Right Distance (meters)", getMotorPositionsInMeters(rightMain));
+ 
     SmartDashboard.putNumber("Heading", getHeading().getDegrees());
     SmartDashboard.putNumber("Turn Rate", getTurnRate());
-    SmartDashboard.putNumber("Left Velocity (m/s)", leftMain.getSelectedSensorVelocity()*ENCODER_DISTANCE_METERS_PER_PULSE*10);
+    SmartDashboard.putNumber("Left Velocity (m/s)", -1*leftMain.getSelectedSensorVelocity()*ENCODER_DISTANCE_METERS_PER_PULSE*10);
     SmartDashboard.putNumber("Right Velocity (m/s)", rightMain.getSelectedSensorVelocity()*ENCODER_DISTANCE_METERS_PER_PULSE*10);
 
     SmartDashboard.putNumber("Pigeon Yaw Pitch Roll", getPigeonYawPitchRoll()[0]);
@@ -104,7 +103,9 @@ public class DriveTrainSubsystem extends SubsystemBase {
     
     //SmartDashboard.putNumber("Rotation 2d (Yaw)", )
 
-    odometry.update(getHeading(), getMotorPositionsInMeters(leftMain), getMotorPositionsInMeters(rightMain));
+  
+    odometry.update(getHeading(), -1*getMotorPositionsInMeters(leftMain), getMotorPositionsInMeters(rightMain));resetEncoders();
+    resetEncoders(); 
   }
 
   public void driveWithJoystick(double left, double right) {
@@ -169,7 +170,7 @@ public class DriveTrainSubsystem extends SubsystemBase {
   }
 
   public DifferentialDriveWheelSpeeds getWheelSpeeds() {
-    return new DifferentialDriveWheelSpeeds(leftMain.getSelectedSensorVelocity()*ENCODER_DISTANCE_METERS_PER_PULSE * 10, rightMain.getSelectedSensorVelocity()*ENCODER_DISTANCE_METERS_PER_PULSE * 10);
+    return new DifferentialDriveWheelSpeeds(-1*leftMain.getSelectedSensorVelocity()*ENCODER_DISTANCE_METERS_PER_PULSE * 10, rightMain.getSelectedSensorVelocity()*ENCODER_DISTANCE_METERS_PER_PULSE * 10);
   }
 
   public void resetOdometry(Pose2d pose) {
@@ -178,8 +179,8 @@ public class DriveTrainSubsystem extends SubsystemBase {
   }
 
   public void tankDriveVolts(double leftVolts, double rightVolts) {
-    leftMain.setVoltage(leftVolts);
-    rightMain.setVoltage(rightVolts); // TODO: Negative?
+    leftMain.setVoltage(-leftVolts);
+    rightMain.setVoltage(rightVolts);
     twoMotorDrive.feed();
   }
 

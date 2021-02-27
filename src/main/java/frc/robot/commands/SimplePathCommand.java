@@ -23,52 +23,14 @@ import static frc.robot.Constants.*;
 
 import java.util.List;
 
-public class SimplePathCommand extends CommandBase {
-
-  DifferentialDriveVoltageConstraint autoVoltageConstraint;
-
-  TrajectoryConfig config;
-
-  Trajectory exampleTrajectory;
-
-  RamseteCommand ramseteCommand;
+public class SimplePathCommand extends RamseteCommand {
 
   private final DriveTrainSubsystem driveTrainSubsystem;
   
   /** Creates a new SimplePathCommand. */
-  public SimplePathCommand(DriveTrainSubsystem drive) {
-    driveTrainSubsystem = drive;
-    addRequirements(driveTrainSubsystem);
-    autoVoltageConstraint = new DifferentialDriveVoltageConstraint(
-            new SimpleMotorFeedforward(KS,
-                                       KV,
-                                       KA),
-            K_DRIVE_KINEMATICS,
-            10);
+  public SimplePathCommand(DriveTrainSubsystem driveTrainSubsystem, Trajectory exampleTrajectory) {
 
-    config = new TrajectoryConfig(
-      kMaxSpeedMetersPerSecond,
-      kMaxAccelerationMetersPerSecondSquared)
-    // Add kinematics to ensure max speed is actually obeyed
-    .setKinematics(K_DRIVE_KINEMATICS)
-    // Apply the voltage constraint
-    .addConstraint(autoVoltageConstraint);
-
-    exampleTrajectory = TrajectoryGenerator.generateTrajectory(
-        // Start at the origin facing the +X direction
-        new Pose2d(0, 0, new Rotation2d(0)),
-        // Pass through these two interior waypoints, making an 's' curve path
-        List.of(
-            new Translation2d(1, 1),
-            new Translation2d(2, -1)
-        ),
-        // End 3 meters straight ahead of where we started, facing forward
-        new Pose2d(3, 0, new Rotation2d(0)),
-        // Pass config
-        config
-    );
-
-   ramseteCommand = new RamseteCommand(
+    super(
         exampleTrajectory,
         driveTrainSubsystem::getPose,
         new RamseteController(kRamseteB, kRamseteZeta),
@@ -84,26 +46,14 @@ public class SimplePathCommand extends CommandBase {
         driveTrainSubsystem
     );
 
+    this.driveTrainSubsystem = driveTrainSubsystem;
+
     driveTrainSubsystem.resetOdometry(exampleTrajectory.getInitialPose());
   }
 
-  // Called when the command is initially scheduled.
   @Override
-  public void initialize() {}
-
-  // Called every time the scheduler runs while the command is scheduled.
-  @Override
-  public void execute() {
-    ramseteCommand.andThen(() -> driveTrainSubsystem.tankDriveVolts(0, 0)).schedule();
-  }
-
-  // Called once the command ends or is interrupted.
-  @Override
-  public void end(boolean interrupted) {}
-
-  // Returns true when the command should end.
-  @Override
-  public boolean isFinished() {
-    return false;
+  public void end(boolean interrupted) {
+    super.end(interrupted);
+    driveTrainSubsystem.tankDriveVolts(0.0, 0.0);
   }
 }
