@@ -21,6 +21,6 @@ public class DriveAndShootCommandGroup extends SequentialCommandGroup {
     // Add your commands in the addCommands() call, e.g.
     // addCommands(new FooCommand(), new BarCommand());
     addCommands(new DriveForwardDistanceCommand(dts, 1.0),
-                new AimAndShooterMotorCommandGroup(shootSub, left, ls, dts));
+                new AimAndRunShooterMotorCommandGroup(shootSub, left, ls, dts));
   }
 }

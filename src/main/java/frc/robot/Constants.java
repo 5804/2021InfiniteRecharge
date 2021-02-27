@@ -5,7 +5,7 @@
 /* the project.                                                               */
 /*----------------------------------------------------------------------------*/
 
-pacKAge frc.robot;
+package frc.robot;
 
 import edu.wpi.first.wpilibj.kinematics.DifferentialDriveKinematics;
 import edu.wpi.first.wpilibj.util.Units;
@@ -54,8 +54,6 @@ public final class Constants {
 	public static final double KA = 0.0984;
 	// r^2 .999
 
-	public static final double ksVolts = 0.0;
-	public static final double kvVoltSecondsPerMeter = 0.0;
 	public static final double KAVoltSecondsSquaredPerMeter = 0.0;
 
 	public static final DifferentialDriveKinematics K_DRIVE_KINEMATICS = new DifferentialDriveKinematics(Units.inchesToMeters(26.625));

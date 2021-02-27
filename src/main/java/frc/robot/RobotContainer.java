@@ -20,7 +20,7 @@ import edu.wpi.first.wpilibj.trajectory.TrajectoryConfig;
 import edu.wpi.first.wpilibj.trajectory.TrajectoryGenerator;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 import frc.robot.commands.*;
-import frc.robot.commands.commandGroups.AimAndShooterMotorCommandGroup;
+import frc.robot.commands.commandGroups.AimAndRunShooterMotorCommandGroup;
 import frc.robot.commands.commandGroups.DriveAndShootCommandGroup;
 import frc.robot.subsystems.DriveTrainSubsystem;
 import frc.robot.subsystems.ExampleSubsystem;
@@ -63,7 +63,7 @@ public class RobotContainer {
 
   private final DriveAndShootCommandGroup autonomousFromLineCommand = new DriveAndShootCommandGroup(driveTrainSubsystem, shooterSubsystem, leftStick, limelightSubsystem);
 
-  private final FireCommand fireCommand = new FireCommand(intakeSubsystem);
+  private final FireIntakeCommand fireCommand = new FireIntakeCommand(intakeSubsystem);
 
   SendableChooser<Command> sendableChooser = new SendableChooser<>();
   
@@ -136,14 +136,14 @@ public class RobotContainer {
       .whenPressed(new DriveTrainReversedCommand(driveTrainSubsystem));
 
     leftTrigger
-      .whileHeld(new FireCommand(intakeSubsystem));
+      .whileHeld(new FireIntakeCommand(intakeSubsystem));
     // Rightstick button mappings
     rightTrigger
       .whileHeld(new ActivateIntakeCommand(intakeSubsystem));
       
     //shooter is the rightthumbmain, to actually fire, hold the righttrigger
     leftThumbMain
-      .whileHeld(new AimAndShooterMotorCommandGroup(shooterSubsystem, leftStick, limelightSubsystem, driveTrainSubsystem));
+      .whileHeld(new AimAndRunShooterMotorCommandGroup(shooterSubsystem, leftStick, limelightSubsystem, driveTrainSubsystem));
     leftThumbRight
       .whileHeld(new ShooterDashVelocityCommand(shooterSubsystem));
 

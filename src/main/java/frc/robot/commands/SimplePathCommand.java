@@ -40,17 +40,17 @@ public class SimplePathCommand extends CommandBase {
     driveTrainSubsystem = drive;
     addRequirements(driveTrainSubsystem);
     autoVoltageConstraint = new DifferentialDriveVoltageConstraint(
-            new SimpleMotorFeedforward(ksVolts,
-                                       kvVoltSecondsPerMeter,
-                                       kaVoltSecondsSquaredPerMeter),
-            kDriveKinematics,
+            new SimpleMotorFeedforward(KS,
+                                       KV,
+                                       KA),
+            K_DRIVE_KINEMATICS,
             10);
 
     config = new TrajectoryConfig(
       kMaxSpeedMetersPerSecond,
       kMaxAccelerationMetersPerSecondSquared)
     // Add kinematics to ensure max speed is actually obeyed
-    .setKinematics(kDriveKinematics)
+    .setKinematics(K_DRIVE_KINEMATICS)
     // Apply the voltage constraint
     .addConstraint(autoVoltageConstraint);
 
@@ -72,13 +72,13 @@ public class SimplePathCommand extends CommandBase {
         exampleTrajectory,
         driveTrainSubsystem::getPose,
         new RamseteController(kRamseteB, kRamseteZeta),
-        new SimpleMotorFeedforward(ksVolts,
-                                   kvVoltSecondsPerMeter,
-                                   kaVoltSecondsSquaredPerMeter),
-        kDriveKinematics,
+        new SimpleMotorFeedforward(KS,
+                                   KV,
+                                   KA),
+                                   K_DRIVE_KINEMATICS,
         driveTrainSubsystem::getWheelSpeeds,
-        new PIDController(kPDriveVel, 0, 0),
-        new PIDController(kPDriveVel, 0, 0),
+        new PIDController(KP, 0, 0),
+        new PIDController(KP, 0, 0),
         // RamseteCommand passes volts to the callback
         driveTrainSubsystem::tankDriveVolts,
         driveTrainSubsystem

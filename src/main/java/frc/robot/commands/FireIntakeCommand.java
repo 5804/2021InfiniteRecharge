@@ -7,11 +7,11 @@ package frc.robot.commands;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.subsystems.IntakeSubsystem;
 
-public class FireCommand extends CommandBase {
+public class FireIntakeCommand extends CommandBase {
 
   private final IntakeSubsystem intakeSubsystem;
   /** Creates a new FireCommand. */
-  public FireCommand(IntakeSubsystem is) {
+  public FireIntakeCommand(IntakeSubsystem is) {
     intakeSubsystem = is;
     // Use addRequirements() here to declare subsystem dependencies.
     addRequirements(intakeSubsystem);

@@ -8,13 +8,13 @@ import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.subsystems.ShooterSubsystem;
 
-public class ShooterCommand extends CommandBase {
+public class RunShooterMotor extends CommandBase {
 
   private final ShooterSubsystem shoot;
 
   private final Joystick leftStick;
   /** Creates a new ShooterCommand. */
-  public ShooterCommand(ShooterSubsystem shootSub, Joystick left) {
+  public RunShooterMotor(ShooterSubsystem shootSub, Joystick left) {
     shoot = shootSub;
 
     leftStick = left;
