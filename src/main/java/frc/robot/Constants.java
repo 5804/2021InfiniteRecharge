@@ -50,9 +50,9 @@ public final class Constants {
 	public static final double WHEEL_RADIUS = .0762;
 
 	// TODO: this might be in feet, could have to put in meters
-	public static final double KS = 0.647;
-	public static final double KV = 0.961;
-	public static final double KA = 0.0984;
+	public static final double KS = 0.625;
+	public static final double KV = 3.17;
+	public static final double KA = 0.324;
 	// r^2 .999
 
 	public static final double KAVoltSecondsSquaredPerMeter = 0.0;
@@ -64,6 +64,6 @@ public final class Constants {
 
 	public static final double kRamseteB = 0.0;
 	public static final double kRamseteZeta = 0.0;
-	public static final double KP = 1;
+	public static final double KP = 2.06;
 
 }
