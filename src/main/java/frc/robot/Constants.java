@@ -59,11 +59,11 @@ public final class Constants {
 
 	public static final DifferentialDriveKinematics K_DRIVE_KINEMATICS = new DifferentialDriveKinematics(Units.inchesToMeters(26.625));
 
-	public static final double kMaxSpeedMetersPerSecond = 5.0;
-	public static final double kMaxAccelerationMetersPerSecondSquared = 5.0;
+	public static final double kMaxSpeedMetersPerSecond = 2.0;
+	public static final double kMaxAccelerationMetersPerSecondSquared = 2.0;
 
-	public static final double kRamseteB = 0.0;
-	public static final double kRamseteZeta = 0.0;
-	public static final double KP = 2.06;
+	public static final double kRamseteB = 2.0;
+	public static final double kRamseteZeta = 0.7;
+	public static final double KP = 0.0;
 
 }

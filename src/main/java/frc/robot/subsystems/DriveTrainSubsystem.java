@@ -105,7 +105,7 @@ public class DriveTrainSubsystem extends SubsystemBase {
 
   
     odometry.update(getHeading(), -1*getMotorPositionsInMeters(leftMain), getMotorPositionsInMeters(rightMain));
-    resetEncoders(); 
+    //resetEncoders(); 
   }
 
   public void driveWithJoystick(double left, double right) {
@@ -153,7 +153,9 @@ public class DriveTrainSubsystem extends SubsystemBase {
 
     double[] ypr = {0,0,0};
     pigeon.getYawPitchRoll(ypr);
-    return Rotation2d.fromDegrees(Math.IEEEremainder(ypr[0], 360.0d) * -1.0d); 
+    //TODO:                                                       V Might be multiplied by negative 1
+    return Rotation2d.fromDegrees(Math.IEEEremainder(ypr[0], 360.0));
+
 
   }
   
