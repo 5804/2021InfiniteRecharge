@@ -96,13 +96,18 @@ public class RobotContainer {
 
   String bluePathGalactic = "paths/bluePathGalacticPathA.wpilib.json";
   //String trajectoryJSON = bluePathGalacticPathA;
-  Trajectory trajectory = new Trajectory();
+  Trajectory trajectory = new Trajectory(); {
+
+  {
+
+  }
   try {
       Path trajectoryPath = Filesystem.getDeployDirectory().toPath().resolve(bluePathGalactic);
       trajectory = TrajectoryUtil.fromPathweaverJson(trajectoryPath);
   } catch (IOException ex) {
-      DriverStation.reportError("Unable to open trajectory: " + bluePathGalactic, ex.getStackTrace());
+      DriverStation.reportError("Unable to open trajectory: " + bluePathGalactic, ex.getStackTrace());}
   }
+  
 
 
   /*
@@ -161,6 +166,7 @@ public class RobotContainer {
   JoystickButton rightLeftArrayBR = new JoystickButton(rightStick, 14);
   JoystickButton rightLeftArrayBM = new JoystickButton(rightStick, 15);
   JoystickButton rightLeftArrayBL = new JoystickButton(rightStick, 16);
+
 
   /**
    * The container for the robot.  Contains subsystems, OI devices, and commands.
