@@ -45,7 +45,7 @@ public final class Constants {
 	public static final double ENCODER_DISTANCE_METERS_PER_PULSE = (.1524 * 3.14159265)/29020.16;
 
     // .675 trackwidth
-	public static final double DRIVE_TRAIN_WIDTH = .675;
+	public static final double DRIVE_TRAIN_WIDTH = 1.5;
 	public static final double GEAR_RATIO = 14.17;
 	public static final double WHEEL_RADIUS = .0762;
 
@@ -64,6 +64,6 @@ public final class Constants {
 
 	public static final double kRamseteB = 2.0;
 	public static final double kRamseteZeta = 0.7;
-	public static final double KP = 0.0;
+	public static final double KP = 3;
 
 }

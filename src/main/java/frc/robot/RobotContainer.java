@@ -7,8 +7,12 @@
 
 package frc.robot;
 
+import java.io.IOException;
+import java.nio.file.Path;
 import java.util.Arrays;
 
+import edu.wpi.first.wpilibj.DriverStation;
+import edu.wpi.first.wpilibj.Filesystem;
 import edu.wpi.first.wpilibj.GenericHID;
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.controller.RamseteController;
@@ -20,6 +24,7 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj.trajectory.Trajectory;
 import edu.wpi.first.wpilibj.trajectory.TrajectoryConfig;
 import edu.wpi.first.wpilibj.trajectory.TrajectoryGenerator;
+import edu.wpi.first.wpilibj.trajectory.TrajectoryUtil;
 import edu.wpi.first.wpilibj.trajectory.constraint.DifferentialDriveVoltageConstraint;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 import frc.robot.commands.*;
@@ -88,24 +93,38 @@ public class RobotContainer {
   // Apply the voltage constraint
   .addConstraint(autoVoltageConstraint);
 
+
+  String bluePathGalactic = "paths/bluePathGalacticPathA.wpilib.json";
+  //String trajectoryJSON = bluePathGalacticPathA;
+  Trajectory trajectory = new Trajectory();
+  try {
+      Path trajectoryPath = Filesystem.getDeployDirectory().toPath().resolve(bluePathGalactic);
+      trajectory = TrajectoryUtil.fromPathweaverJson(trajectoryPath);
+  } catch (IOException ex) {
+      DriverStation.reportError("Unable to open trajectory: " + bluePathGalactic, ex.getStackTrace());
+  }
+
+
+  /*
   Trajectory exampleTrajectory = TrajectoryGenerator.generateTrajectory(
     // Start at the origin facing the +X direction
     new Pose2d(0, 0, new Rotation2d(0)),
     // Pass through these two interior waypoints, making an 's' curve path
     List.of(
-        new Translation2d(1, 1),
-        new Translation2d(2, -1)
+        new Translation2d(1.524, 0),
+        new Translation2d(3.05, -0.76),
+        new Translation2d(3.5, 1.7)
     ),
-    // End 3 meters straight ahead of where we started, facing forward
-    new Pose2d(3, 0, new Rotation2d(0)),
+    new Pose2d(7.0, 1.0, new Rotation2d(0)),
     // Pass config
     config
 );
+*/
 
 
   private final SimplePathCommand simplePathCommand = new SimplePathCommand(
     driveTrainSubsystem,
-    exampleTrajectory
+    trajectory
   );
   
   // All joystick buttons are defined here
