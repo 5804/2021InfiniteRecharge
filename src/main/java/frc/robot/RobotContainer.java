@@ -33,6 +33,8 @@ import frc.robot.commands.commandGroups.AimAndRunShooterMotorCommandGroup;
 import frc.robot.commands.commandGroups.BarrelRacingPath;
 import frc.robot.commands.commandGroups.Bounce;
 import frc.robot.commands.commandGroups.DriveAndShootCommandGroup;
+import frc.robot.commands.commandGroups.GalacticSearchABlue;
+import frc.robot.commands.commandGroups.GalacticSearchARed;
 import frc.robot.commands.commandGroups.GalacticSearchBBlue;
 import frc.robot.commands.commandGroups.GalacticSearchBRed;
 import frc.robot.commands.commandGroups.Slalom;
@@ -87,6 +89,8 @@ public class RobotContainer {
 
   private final GalacticSearchBBlue galacticSearchBBlue = new GalacticSearchBBlue(driveTrainSubsystem, intakeSubsystem);
   private final GalacticSearchBRed galacticSearchBRed = new GalacticSearchBRed(driveTrainSubsystem, intakeSubsystem);
+  private final GalacticSearchARed galacticSearchARed = new GalacticSearchARed(driveTrainSubsystem, intakeSubsystem);
+  private final GalacticSearchABlue galacticSearchABlue = new GalacticSearchABlue(driveTrainSubsystem, intakeSubsystem);
 
   private final Slalom slalom = new Slalom(driveTrainSubsystem, intakeSubsystem);
 
@@ -192,6 +196,8 @@ public class RobotContainer {
     sendableChooser.addOption("Slalom", slalom);
     sendableChooser.addOption("Bounce", bounce);
     sendableChooser.addOption("Barrel Racing", barrelRacingPath);
+    sendableChooser.setDefaultOption("Galactic Search - Path A - Blue", galacticSearchABlue);
+    sendableChooser.addOption("Galactic Search - Path A - Red", galacticSearchARed);
     sendableChooser.addOption("Drive and Shooting", autonomousFromLineCommand);
     sendableChooser.addOption("Fire", fireCommand);
 
