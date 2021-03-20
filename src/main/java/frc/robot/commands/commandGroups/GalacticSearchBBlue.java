@@ -25,13 +25,13 @@ import static frc.robot.Constants.*;
 // NOTE:  Consider using this command inline, rather than writing a subclass.  For more
 // information, see:
 // https://docs.wpilib.org/en/stable/docs/software/commandbased/convenience-features.html
-public class GalacticSearchABlue extends ParallelCommandGroup {
+public class GalacticSearchBBlue extends ParallelCommandGroup {
 
 
   /** Creates a new GalacticSearchABlue. */
-  public GalacticSearchABlue(DriveTrainSubsystem driveTrainSubsystem, IntakeSubsystem intakeSubsystem) {
+  public GalacticSearchBBlue(DriveTrainSubsystem driveTrainSubsystem, IntakeSubsystem intakeSubsystem) {
 
-    String trajectoryJSON = "paths/bluePathGalacticPathA.wpilib.json";
+    String trajectoryJSON = "paths/bluePathGalacticB.wpilib.json";
     Trajectory trajectory = new Trajectory();
     try {
         Path trajectoryPath = Filesystem.getDeployDirectory().toPath().resolve(trajectoryJSON);

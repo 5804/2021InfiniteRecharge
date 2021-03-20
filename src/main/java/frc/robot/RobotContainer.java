@@ -31,7 +31,7 @@ import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 import frc.robot.commands.*;
 import frc.robot.commands.commandGroups.AimAndRunShooterMotorCommandGroup;
 import frc.robot.commands.commandGroups.DriveAndShootCommandGroup;
-import frc.robot.commands.commandGroups.GalacticSearchABlue;
+import frc.robot.commands.commandGroups.GalacticSearchBBlue;
 import frc.robot.subsystems.DriveTrainSubsystem;
 import frc.robot.subsystems.ExampleSubsystem;
 import frc.robot.subsystems.IntakeSubsystem;
@@ -81,7 +81,7 @@ public class RobotContainer {
 
   private final FireIntakeCommand fireCommand = new FireIntakeCommand(intakeSubsystem);
 
-  private final GalacticSearchABlue galacticSearchABlue = new GalacticSearchABlue(driveTrainSubsystem);
+  private final GalacticSearchBBlue galacticSearchBBlue = new GalacticSearchBBlue(driveTrainSubsystem, intakeSubsystem);
 
   SendableChooser<Command> sendableChooser = new SendableChooser<>();
 
@@ -100,7 +100,7 @@ public class RobotContainer {
 
   String bluePathGalactic = "paths/bluePathGalacticPathB.wpilib.json";
   Trajectory trajectory = getTrajectoryFromPath(bluePathGalactic);
-  //String trajectoryJSON = "paths/bluePathGalacticPathA";
+  //String trajectoryJSON = "paths/bluePathGalacticPathB";
 
 
   /*
@@ -175,7 +175,7 @@ public class RobotContainer {
     shooterSubsystem.setDefaultCommand(shooterIdleCommand);
 
     sendableChooser.setDefaultOption("Simple Path", simplePathCommand);
-    sendableChooser.addOption("Galactic Search - Path A - Blue", galacticSearchABlue);
+    sendableChooser.addOption("Galactic Search - Path B - Blue", galacticSearchBBlue);
     sendableChooser.addOption("Drive and Shooting", autonomousFromLineCommand);
     sendableChooser.addOption("Fire", fireCommand);
 
@@ -236,36 +236,37 @@ public class RobotContainer {
    *
    * @return the command to run in autonomous
    */
+
   public Command getAutonomousCommand() {
-    // String trajectoryJSON = "paths/barrelRacingPath.wpilib.json";
-    // Trajectory trajectory = new Trajectory();
-    // try {
-    //     Path trajectoryPath = Filesystem.getDeployDirectory().toPath().resolve(trajectoryJSON);
-    //     trajectory = TrajectoryUtil.fromPathweaverJson(trajectoryPath);
-    // } catch (IOException ex) {
-    //     DriverStation.reportError("Unable to open trajectory: " + trajectoryJSON, ex.getStackTrace());
-    // }
+    /*String trajectoryJSON = "paths/galacticPathBBlue.wpilib.json";
+    Trajectory trajectory = new Trajectory();
+    try {
+        Path trajectoryPath = Filesystem.getDeployDirectory().toPath().resolve(trajectoryJSON);
+        trajectory = TrajectoryUtil.fromPathweaverJson(trajectoryPath);
+    } catch (IOException ex) {
+        DriverStation.reportError("Unable to open trajectory: " + trajectoryJSON, ex.getStackTrace());
+    }
 
-    // RamseteCommand ramseteCommand = new RamseteCommand(
-    //   trajectory,
-    //   driveTrainSubsystem::getPose,
-    //   new RamseteController(kRamseteB, kRamseteZeta),
-    //   new SimpleMotorFeedforward(KS,
-    //                               KV,
-    //                               KA),
-    //                               K_DRIVE_KINEMATICS,
-    //   driveTrainSubsystem::getWheelSpeeds,
-    //   new PIDController(KP, 0, 0),
-    //   new PIDController(KP, 0, 0),
-    //   // RamseteCommand passes volts to the callback
-    //   driveTrainSubsystem::tankDriveVolts,
-    //   driveTrainSubsystem
-    //   );
+    RamseteCommand ramseteCommand = new RamseteCommand(
+      trajectory,
+      driveTrainSubsystem::getPose,
+      new RamseteController(kRamseteB, kRamseteZeta),
+      new SimpleMotorFeedforward(KS,
+                                  KV,
+                                  KA),
+                                  K_DRIVE_KINEMATICS,
+      driveTrainSubsystem::getWheelSpeeds,
+      new PIDController(KP, 0, 0),
+      new PIDController(KP, 0, 0),
+      // RamseteCommand passes volts to the callback
+      driveTrainSubsystem::tankDriveVolts,
+      driveTrainSubsystem
+      );
 
-    //   driveTrainSubsystem.resetOdometry(trajectory.getInitialPose());
+      driveTrainSubsystem.resetOdometry(trajectory.getInitialPose());
 
-    //   // Run path following command, then stop at the end.
-    // return ramseteCommand.andThen(() -> driveTrainSubsystem.tankDriveVolts(0, 0));
+      // Run path following command, then stop at the end.
+    return ramseteCommand.andThen(() -> driveTrainSubsystem.tankDriveVolts(0, 0));*/
     return sendableChooser.getSelected();
   }
 }
