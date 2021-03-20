@@ -95,7 +95,9 @@ public class RobotContainer {
 
 
   String bluePathGalactic = "paths/bluePathGalacticPathA.wpilib.json";
+  Trajectory trajectory = getTrajectoryFromPath(bluePathGalactic);
   //String trajectoryJSON = bluePathGalacticPathA;
+<<<<<<< HEAD
   Trajectory trajectory = new Trajectory(); {
 
   {
@@ -108,6 +110,8 @@ public class RobotContainer {
       DriverStation.reportError("Unable to open trajectory: " + bluePathGalactic, ex.getStackTrace());}
   }
   
+=======
+>>>>>>> 64ccbfac486d8ff2d31bd0036285e7336952f5b7
 
 
   /*
@@ -222,6 +226,18 @@ public class RobotContainer {
     
     leftLeftArrayBR
       .whenPressed(simplePathCommand);
+  }
+
+  public Trajectory getTrajectoryFromPath(String path) {
+    Trajectory trajectory = new Trajectory();
+    try {
+        Path trajectoryPath = Filesystem.getDeployDirectory().toPath().resolve(path);
+        trajectory = TrajectoryUtil.fromPathweaverJson(trajectoryPath);
+        return trajectory;
+    } catch (IOException ex) {
+        DriverStation.reportError("Unable to open trajectory: " + path, ex.getStackTrace());
+        return null;
+    }
   }
 
 
