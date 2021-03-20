@@ -30,9 +30,12 @@ import edu.wpi.first.wpilibj.trajectory.constraint.DifferentialDriveVoltageConst
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 import frc.robot.commands.*;
 import frc.robot.commands.commandGroups.AimAndRunShooterMotorCommandGroup;
+import frc.robot.commands.commandGroups.BarrelRacingPath;
+import frc.robot.commands.commandGroups.Bounce;
 import frc.robot.commands.commandGroups.DriveAndShootCommandGroup;
 import frc.robot.commands.commandGroups.GalacticSearchBBlue;
 import frc.robot.commands.commandGroups.GalacticSearchBRed;
+import frc.robot.commands.commandGroups.Slalom;
 import frc.robot.subsystems.DriveTrainSubsystem;
 import frc.robot.subsystems.ExampleSubsystem;
 import frc.robot.subsystems.IntakeSubsystem;
@@ -84,6 +87,12 @@ public class RobotContainer {
 
   private final GalacticSearchBBlue galacticSearchBBlue = new GalacticSearchBBlue(driveTrainSubsystem, intakeSubsystem);
   private final GalacticSearchBRed galacticSearchBRed = new GalacticSearchBRed(driveTrainSubsystem, intakeSubsystem);
+
+  private final Slalom slalom = new Slalom(driveTrainSubsystem, intakeSubsystem);
+
+  private final Bounce bounce = new Bounce(driveTrainSubsystem, intakeSubsystem);
+
+  private final BarrelRacingPath barrelRacingPath = new BarrelRacingPath(driveTrainSubsystem, intakeSubsystem);
 
   SendableChooser<Command> sendableChooser = new SendableChooser<>();
 
@@ -180,6 +189,9 @@ public class RobotContainer {
     //sendableChooser.setDefaultOption("Simple Path", simplePathCommand);
     sendableChooser.setDefaultOption("Galactic Search - Path B - Blue", galacticSearchBBlue);
     sendableChooser.addOption("Galactic Search - Path B - Red", galacticSearchBRed);
+    sendableChooser.addOption("Slalom", slalom);
+    sendableChooser.addOption("Bounce", bounce);
+    sendableChooser.addOption("Barrel Racing", barrelRacingPath);
     sendableChooser.addOption("Drive and Shooting", autonomousFromLineCommand);
     sendableChooser.addOption("Fire", fireCommand);
 
