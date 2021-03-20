@@ -15,6 +15,7 @@ import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.Filesystem;
 import edu.wpi.first.wpilibj.GenericHID;
 import edu.wpi.first.wpilibj.Joystick;
+import edu.wpi.first.wpilibj.controller.PIDController;
 import edu.wpi.first.wpilibj.controller.RamseteController;
 import edu.wpi.first.wpilibj.controller.SimpleMotorFeedforward;
 import edu.wpi.first.wpilibj.geometry.Pose2d;
@@ -94,9 +95,9 @@ public class RobotContainer {
   .addConstraint(autoVoltageConstraint);
 
 
-  String bluePathGalactic = "paths/bluePathGalacticPathA.wpilib.json";
+  String bluePathGalactic = "paths/bluePathGalacticPathB.wpilib.json";
   Trajectory trajectory = getTrajectoryFromPath(bluePathGalactic);
-  //String trajectoryJSON = bluePathGalacticPathA;
+  //String trajectoryJSON = "paths/bluePathGalacticPathA";
 
 
   /*
@@ -232,6 +233,35 @@ public class RobotContainer {
    * @return the command to run in autonomous
    */
   public Command getAutonomousCommand() {
-    return sendableChooser.getSelected();
+    String trajectoryJSON = "paths/barrelRacingPath.wpilib.json";
+        Trajectory trajectory = new Trajectory();
+        try {
+            Path trajectoryPath = Filesystem.getDeployDirectory().toPath().resolve(trajectoryJSON);
+            trajectory = TrajectoryUtil.fromPathweaverJson(trajectoryPath);
+        } catch (IOException ex) {
+            DriverStation.reportError("Unable to open trajectory: " + trajectoryJSON, ex.getStackTrace());
+        }
+
+        RamseteCommand ramseteCommand = new RamseteCommand(
+          trajectory,
+          driveTrainSubsystem::getPose,
+          new RamseteController(kRamseteB, kRamseteZeta),
+          new SimpleMotorFeedforward(KS,
+                                     KV,
+                                     KA),
+                                     K_DRIVE_KINEMATICS,
+          driveTrainSubsystem::getWheelSpeeds,
+          new PIDController(KP, 0, 0),
+          new PIDController(KP, 0, 0),
+          // RamseteCommand passes volts to the callback
+          driveTrainSubsystem::tankDriveVolts,
+          driveTrainSubsystem
+      );
+
+      driveTrainSubsystem.resetOdometry(trajectory.getInitialPose());
+
+      // Run path following command, then stop at the end.
+    return ramseteCommand.andThen(() -> driveTrainSubsystem.tankDriveVolts(0, 0));
+    //return sendableChooser.getSelected();
   }
 }
