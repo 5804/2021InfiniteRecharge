@@ -32,6 +32,7 @@ import frc.robot.commands.*;
 import frc.robot.commands.commandGroups.AimAndRunShooterMotorCommandGroup;
 import frc.robot.commands.commandGroups.DriveAndShootCommandGroup;
 import frc.robot.commands.commandGroups.GalacticSearchBBlue;
+import frc.robot.commands.commandGroups.GalacticSearchBRed;
 import frc.robot.subsystems.DriveTrainSubsystem;
 import frc.robot.subsystems.ExampleSubsystem;
 import frc.robot.subsystems.IntakeSubsystem;
@@ -82,6 +83,7 @@ public class RobotContainer {
   private final FireIntakeCommand fireCommand = new FireIntakeCommand(intakeSubsystem);
 
   private final GalacticSearchBBlue galacticSearchBBlue = new GalacticSearchBBlue(driveTrainSubsystem, intakeSubsystem);
+  private final GalacticSearchBRed galacticSearchBRed = new GalacticSearchBRed(driveTrainSubsystem, intakeSubsystem);
 
   SendableChooser<Command> sendableChooser = new SendableChooser<>();
 
@@ -177,6 +179,7 @@ public class RobotContainer {
 
     //sendableChooser.setDefaultOption("Simple Path", simplePathCommand);
     sendableChooser.setDefaultOption("Galactic Search - Path B - Blue", galacticSearchBBlue);
+    sendableChooser.addOption("Galactic Search - Path B - Red", galacticSearchBRed);
     sendableChooser.addOption("Drive and Shooting", autonomousFromLineCommand);
     sendableChooser.addOption("Fire", fireCommand);
 
