@@ -98,8 +98,8 @@ public class RobotContainer {
   .addConstraint(autoVoltageConstraint);
 
 
-  String bluePathGalactic = "paths/bluePathGalacticPathB.wpilib.json";
-  Trajectory trajectory = getTrajectoryFromPath(bluePathGalactic);
+  //String bluePathGalactic = "paths/bluePathGalacticPathB.wpilib.json";
+  //Trajectory trajectory = getTrajectoryFromPath(bluePathGalactic);
   //String trajectoryJSON = "paths/bluePathGalacticPathB";
 
 
@@ -120,10 +120,11 @@ public class RobotContainer {
 */
 
 
-  private final SimplePathCommand simplePathCommand = new SimplePathCommand(
+  /*private final SimplePathCommand simplePathCommand = new SimplePathCommand(
     driveTrainSubsystem,
     trajectory
   );
+  */
   
   // All joystick buttons are defined here
   JoystickButton leftTrigger = new JoystickButton(leftStick, 1);
@@ -174,8 +175,8 @@ public class RobotContainer {
     intakeSubsystem.setDefaultCommand(deactivateIntakeCommand);
     shooterSubsystem.setDefaultCommand(shooterIdleCommand);
 
-    sendableChooser.setDefaultOption("Simple Path", simplePathCommand);
-    sendableChooser.addOption("Galactic Search - Path B - Blue", galacticSearchBBlue);
+    //sendableChooser.setDefaultOption("Simple Path", simplePathCommand);
+    sendableChooser.setDefaultOption("Galactic Search - Path B - Blue", galacticSearchBBlue);
     sendableChooser.addOption("Drive and Shooting", autonomousFromLineCommand);
     sendableChooser.addOption("Fire", fireCommand);
 
@@ -214,8 +215,9 @@ public class RobotContainer {
     leftLeftArrayBL
       .whenPressed(new DriveAndShootCommandGroup(driveTrainSubsystem, shooterSubsystem, leftStick, limelightSubsystem));
     
-    leftLeftArrayBR
+    /*leftLeftArrayBR
       .whenPressed(simplePathCommand);
+      */
   }
 
   public Trajectory getTrajectoryFromPath(String path) {

@@ -31,7 +31,7 @@ public class GalacticSearchBBlue extends ParallelCommandGroup {
   /** Creates a new GalacticSearchABlue. */
   public GalacticSearchBBlue(DriveTrainSubsystem driveTrainSubsystem, IntakeSubsystem intakeSubsystem) {
 
-    String trajectoryJSON = "paths/bluePathGalacticB.wpilib.json";
+    String trajectoryJSON = "paths/bluePathGalacticPathB.wpilib.json";
     Trajectory trajectory = new Trajectory();
     try {
         Path trajectoryPath = Filesystem.getDeployDirectory().toPath().resolve(trajectoryJSON);
