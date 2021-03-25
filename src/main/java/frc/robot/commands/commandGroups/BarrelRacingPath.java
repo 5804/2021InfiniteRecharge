@@ -28,7 +28,7 @@ import static frc.robot.Constants.*;
 public class BarrelRacingPath extends SequentialCommandGroup {
   /** Creates a new BarrelRacingPath. */
   public BarrelRacingPath(DriveTrainSubsystem driveTrainSubsystem, IntakeSubsystem intakeSubsystem) {
-    String trajectoryJSON = "paths/barrelRacingPath.wpilib.json";
+    String trajectoryJSON = "paths/output/barrelRacingPath.wpilib.json";
     Trajectory trajectory = new Trajectory();
     try {
         Path trajectoryPath = Filesystem.getDeployDirectory().toPath().resolve(trajectoryJSON);
