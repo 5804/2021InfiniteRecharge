@@ -14,8 +14,8 @@ import edu.wpi.first.wpilibj.controller.RamseteController;
 import edu.wpi.first.wpilibj.controller.SimpleMotorFeedforward;
 import edu.wpi.first.wpilibj.trajectory.Trajectory;
 import edu.wpi.first.wpilibj.trajectory.TrajectoryUtil;
-import edu.wpi.first.wpilibj2.command.ParallelCommandGroup;
 import edu.wpi.first.wpilibj2.command.RamseteCommand;
+import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
 import frc.robot.commands.ActivateIntakeCommand;
 import frc.robot.subsystems.DriveTrainSubsystem;
 import frc.robot.subsystems.IntakeSubsystem;
@@ -25,11 +25,10 @@ import static frc.robot.Constants.*;
 // NOTE:  Consider using this command inline, rather than writing a subclass.  For more
 // information, see:
 // https://docs.wpilib.org/en/stable/docs/software/commandbased/convenience-features.html
-public class GalacticSearchARed extends ParallelCommandGroup {
-  /** Creates a new GalacticSearchARed. */
-  public GalacticSearchARed(DriveTrainSubsystem driveTrainSubsystem, IntakeSubsystem intakeSubsystem) {
-
-    String trajectoryJSON = "paths/redPathGalacticA.wpilib.json";
+public class DriveForward5Feet extends SequentialCommandGroup {
+  /** Creates a new BarrelRacingPath. */
+  public DriveForward5Feet(DriveTrainSubsystem driveTrainSubsystem, IntakeSubsystem intakeSubsystem) {
+    String trajectoryJSON = "paths/output/barrelRacingPath.wpilib.json";
     Trajectory trajectory = new Trajectory();
     try {
         Path trajectoryPath = Filesystem.getDeployDirectory().toPath().resolve(trajectoryJSON);

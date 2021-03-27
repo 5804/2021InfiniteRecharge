@@ -66,4 +66,6 @@ public final class Constants {
 	public static final double kRamseteZeta = 0.7;
 	public static final double KP = 3;
 
+	public static final double GALACTIC_SEARCH_BALL_DISTANCE = 1524; // 1524mm = 5 feet
+
 }

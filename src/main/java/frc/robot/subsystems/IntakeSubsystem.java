@@ -25,11 +25,15 @@ public class IntakeSubsystem extends SubsystemBase {
   public WPI_TalonFX outerIntakeMotor;
   public WPI_TalonFX innerIntakeMotor;
   public WPI_TalonFX conveyorMotor;
-  
+
+  // Conveyor ToFs
   public TimeOfFlight timeOfFlight1;
   public TimeOfFlight timeOfFlight2;
   public TimeOfFlight timeOfFlight3;
   public TimeOfFlight timeOfFlight4;
+
+  // Galactic Search ToF
+  public TimeOfFlight timeOfFlight5;
 
   public IntakeSubsystem() {
     // Inititalizing the outer intake solenoid
@@ -50,15 +54,23 @@ public class IntakeSubsystem extends SubsystemBase {
     innerIntakeMotor.configVoltageCompSaturation(12);
     conveyorMotor.configVoltageCompSaturation(12);
 
+    // Conveyor ToFs
     timeOfFlight1 = new TimeOfFlight(1);
     timeOfFlight2 = new TimeOfFlight(2);
     timeOfFlight3 = new TimeOfFlight(3);
     timeOfFlight4 = new TimeOfFlight(4);
+    
+    // Galactic Search ToF
+    timeOfFlight5 = new TimeOfFlight(5);
 
+    // Conveyor ToFs
     timeOfFlight1.setRangingMode(RangingMode.Short, TOF_SAMPLE_TIME);
     timeOfFlight2.setRangingMode(RangingMode.Short, TOF_SAMPLE_TIME);
     timeOfFlight3.setRangingMode(RangingMode.Short, TOF_SAMPLE_TIME);
     timeOfFlight4.setRangingMode(RangingMode.Short, TOF_SAMPLE_TIME);
+
+    // Galactic Search ToF
+    timeOfFlight5.setRangingMode(RangingMode.Medium, TOF_SAMPLE_TIME); // NOTE: THE RANGING MODE COULD BE LONG
    
   }
 
@@ -125,6 +137,14 @@ public class IntakeSubsystem extends SubsystemBase {
 
   public boolean getTimeOfFlight4Stat() {
     if (timeOfFlight4.getRange() < 110) {
+      return true;
+    } else {
+      return false;
+    }
+  }
+
+  public boolean getTimeOfFlight5Stat() {
+    if (timeOfFlight4.getRange() < GALACTIC_SEARCH_BALL_DISTANCE) {
       return true;
     } else {
       return false;

@@ -30,14 +30,18 @@ import edu.wpi.first.wpilibj.trajectory.constraint.DifferentialDriveVoltageConst
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 import frc.robot.commands.*;
 import frc.robot.commands.commandGroups.AimAndRunShooterMotorCommandGroup;
-import frc.robot.commands.commandGroups.BarrelRacingPath;
+import frc.robot.commands.commandGroups.DriveForward5Feet;
 import frc.robot.commands.commandGroups.Bounce;
 import frc.robot.commands.commandGroups.DriveAndShootCommandGroup;
 import frc.robot.commands.commandGroups.GalacticSearchABlue;
 import frc.robot.commands.commandGroups.GalacticSearchARed;
 import frc.robot.commands.commandGroups.GalacticSearchBBlue;
 import frc.robot.commands.commandGroups.GalacticSearchBRed;
+<<<<<<< HEAD
 import frc.robot.commands.commandGroups.PracticeBounce;
+=======
+import frc.robot.commands.commandGroups.GalacticSearchPhase1;
+>>>>>>> f82ad2e7d6560b472fd6e2262e0db23b03fccae5
 import frc.robot.commands.commandGroups.Slalom;
 import frc.robot.subsystems.DriveTrainSubsystem;
 import frc.robot.subsystems.ExampleSubsystem;
@@ -93,11 +97,13 @@ public class RobotContainer {
   private final GalacticSearchARed galacticSearchARed = new GalacticSearchARed(driveTrainSubsystem, intakeSubsystem);
   private final GalacticSearchABlue galacticSearchABlue = new GalacticSearchABlue(driveTrainSubsystem, intakeSubsystem);
 
+  private final GalacticSearchPhase1 galacticSearchPhase1 = new GalacticSearchPhase1(driveTrainSubsystem, intakeSubsystem, limelightSubsystem);
+
   private final Slalom slalom = new Slalom(driveTrainSubsystem, intakeSubsystem);
 
   private final Bounce bounce = new Bounce(driveTrainSubsystem, intakeSubsystem);
 
-  private final BarrelRacingPath barrelRacingPath = new BarrelRacingPath(driveTrainSubsystem, intakeSubsystem);
+  private final DriveForward5Feet barrelRacingPath = new DriveForward5Feet(driveTrainSubsystem, intakeSubsystem);
 
   private final PracticeBounce practice = new PracticeBounce(driveTrainSubsystem, intakeSubsystem);
 
@@ -203,6 +209,8 @@ public class RobotContainer {
     sendableChooser.addOption("Galactic Search - Path A - Red", galacticSearchARed);
     sendableChooser.addOption("Practice Bounce", practice);
     sendableChooser.addOption("Fire", fireCommand);
+
+    sendableChooser.addOption("Galactic Search", galacticSearchPhase1);
 
     SmartDashboard.putData(sendableChooser);
   }
