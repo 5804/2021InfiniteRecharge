@@ -28,7 +28,7 @@ import static frc.robot.Constants.*;
 public class Slalom extends SequentialCommandGroup {
   /** Creates a new Slalom. */
   public Slalom(DriveTrainSubsystem driveTrainSubsystem, IntakeSubsystem intakeSubsystem) {
-    String trajectoryJSON = "paths/output/slalom2.wpilib.json";
+    String trajectoryJSON = "paths/output/slalom3.wpilib.json";
     Trajectory trajectory = new Trajectory();
     try {
         Path trajectoryPath = Filesystem.getDeployDirectory().toPath().resolve(trajectoryJSON);
