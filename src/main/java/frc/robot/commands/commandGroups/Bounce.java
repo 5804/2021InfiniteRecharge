@@ -28,7 +28,7 @@ import static frc.robot.Constants.*;
 public class Bounce extends SequentialCommandGroup {
   /** Creates a new Bounce. */
   public Bounce(DriveTrainSubsystem driveTrainSubsystem, IntakeSubsystem intakeSubsystem) {
-    String trajectoryJSON = "paths/Bounce.wpilib.json";
+    String trajectoryJSON = "paths/output/Bounce.wpilib.json";
     Trajectory trajectory = new Trajectory();
     try {
         Path trajectoryPath = Filesystem.getDeployDirectory().toPath().resolve(trajectoryJSON);

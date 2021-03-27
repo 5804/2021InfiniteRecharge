@@ -37,6 +37,7 @@ import frc.robot.commands.commandGroups.GalacticSearchABlue;
 import frc.robot.commands.commandGroups.GalacticSearchARed;
 import frc.robot.commands.commandGroups.GalacticSearchBBlue;
 import frc.robot.commands.commandGroups.GalacticSearchBRed;
+import frc.robot.commands.commandGroups.PracticeBounce;
 import frc.robot.commands.commandGroups.Slalom;
 import frc.robot.subsystems.DriveTrainSubsystem;
 import frc.robot.subsystems.ExampleSubsystem;
@@ -97,6 +98,8 @@ public class RobotContainer {
   private final Bounce bounce = new Bounce(driveTrainSubsystem, intakeSubsystem);
 
   private final BarrelRacingPath barrelRacingPath = new BarrelRacingPath(driveTrainSubsystem, intakeSubsystem);
+
+  private final PracticeBounce practice = new PracticeBounce(driveTrainSubsystem, intakeSubsystem);
 
   SendableChooser<Command> sendableChooser = new SendableChooser<>();
 
@@ -198,7 +201,7 @@ public class RobotContainer {
     sendableChooser.addOption("Barrel Racing", barrelRacingPath);
     sendableChooser.setDefaultOption("Galactic Search - Path A - Blue", galacticSearchABlue);
     sendableChooser.addOption("Galactic Search - Path A - Red", galacticSearchARed);
-    sendableChooser.addOption("Drive and Shooting", autonomousFromLineCommand);
+    sendableChooser.addOption("Practice Bounce", practice);
     sendableChooser.addOption("Fire", fireCommand);
 
     SmartDashboard.putData(sendableChooser);

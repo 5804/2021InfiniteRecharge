@@ -29,6 +29,7 @@ public class BarrelRacingPath extends SequentialCommandGroup {
   /** Creates a new BarrelRacingPath. */
   public BarrelRacingPath(DriveTrainSubsystem driveTrainSubsystem, IntakeSubsystem intakeSubsystem) {
     String trajectoryJSON = "paths/output/barrelRacingPath.wpilib.json";
+    //String trajectoryJSON = "paths/PathWeaver/output/pathweaver.wpilib.json";
     Trajectory trajectory = new Trajectory();
     try {
         Path trajectoryPath = Filesystem.getDeployDirectory().toPath().resolve(trajectoryJSON);
