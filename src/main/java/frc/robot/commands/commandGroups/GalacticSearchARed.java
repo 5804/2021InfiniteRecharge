@@ -61,6 +61,6 @@ public class GalacticSearchARed extends ParallelCommandGroup {
 
     // Add your commands in the addCommands() call, e.g.
     // addCommands(new FooCommand(), new BarCommand());
-    addCommands();
+    addCommands(ramseteCommand, activateIntakeCommand);
   }
 }

@@ -46,15 +46,17 @@ public class GalacticSearchPhase1 extends SequentialCommandGroup {
   public void initialize() {
     if (limelightSubsystem.isRedPath()) {
       // drive forward 5 feet
-      addCommands(new DriveForward5Feet(driveTrainSubsystem, intakeSubsystem));
+      addCommands(new DriveForward5Feet(driveTrainSubsystem, intakeSubsystem), new GalacticSearchPhase2(driveTrainSubsystem, intakeSubsystem, limelightSubsystem, "red"));
     } else {
       // drive forward 12 feet
-      addCommands(new DriveForward12Feet(driveTrainSubsystem, intakeSubsystem));
+      addCommands(new DriveForward12Feet(driveTrainSubsystem, intakeSubsystem), new GalacticSearchPhase2(driveTrainSubsystem, intakeSubsystem, limelightSubsystem, "blue"));
     }
+
+    super.initialize();
   }
 
-  @Override
-  public boolean isFinished() {
-    return false;
-  }
+  // @Override
+  // public boolean isFinished() {
+  //   return false;
+  // }
 }

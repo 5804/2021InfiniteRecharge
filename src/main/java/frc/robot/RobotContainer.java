@@ -37,6 +37,7 @@ import frc.robot.commands.commandGroups.GalacticSearchABlue;
 import frc.robot.commands.commandGroups.GalacticSearchARed;
 import frc.robot.commands.commandGroups.GalacticSearchBBlue;
 import frc.robot.commands.commandGroups.GalacticSearchBRed;
+import frc.robot.commands.commandGroups.GalacticSearchPhase1;
 import frc.robot.commands.commandGroups.Slalom;
 import frc.robot.subsystems.DriveTrainSubsystem;
 import frc.robot.subsystems.ExampleSubsystem;
@@ -91,6 +92,8 @@ public class RobotContainer {
   private final GalacticSearchBRed galacticSearchBRed = new GalacticSearchBRed(driveTrainSubsystem, intakeSubsystem);
   private final GalacticSearchARed galacticSearchARed = new GalacticSearchARed(driveTrainSubsystem, intakeSubsystem);
   private final GalacticSearchABlue galacticSearchABlue = new GalacticSearchABlue(driveTrainSubsystem, intakeSubsystem);
+
+  private final GalacticSearchPhase1 galacticSearchPhase1 = new GalacticSearchPhase1(driveTrainSubsystem, intakeSubsystem, limelightSubsystem);
 
   private final Slalom slalom = new Slalom(driveTrainSubsystem, intakeSubsystem);
 
@@ -200,6 +203,8 @@ public class RobotContainer {
     sendableChooser.addOption("Galactic Search - Path A - Red", galacticSearchARed);
     sendableChooser.addOption("Drive and Shooting", autonomousFromLineCommand);
     sendableChooser.addOption("Fire", fireCommand);
+
+    sendableChooser.addOption("Galactic Search", galacticSearchPhase1);
 
     SmartDashboard.putData(sendableChooser);
   }

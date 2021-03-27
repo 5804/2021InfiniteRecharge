@@ -36,9 +36,19 @@ public class GalacticSearchPhase2 extends SequentialCommandGroup {
   @Override
   public void initialize() {
     if (pathToRun.equals("red")) {
-
+      if (limelightSubsystem.isRedPathA()) {
+        addCommands(new GalacticSearchARed(driveTrainSubsystem, intakeSubsystem));
+      } else {
+        addCommands(new GalacticSearchBRed(driveTrainSubsystem, intakeSubsystem));
+      }
     } else {
-
+      if (limelightSubsystem.isBluePathA()) {
+        addCommands(new GalacticSearchABlue(driveTrainSubsystem, intakeSubsystem));
+      } else {
+        addCommands(new GalacticSearchBBlue(driveTrainSubsystem, intakeSubsystem));
+      }
     }
+
+    super.initialize();
   }
 }
