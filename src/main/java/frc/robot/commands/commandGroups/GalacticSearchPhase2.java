@@ -26,7 +26,7 @@ public class GalacticSearchPhase2 extends SequentialCommandGroup {
     intakeSubsystem = is;
     limelightSubsystem = ls;
 
-    String pathToRun = path;
+    pathToRun = path;
 
     // Add your commands in the addCommands() call, e.g.
     // addCommands(new FooCommand(), new BarCommand());
