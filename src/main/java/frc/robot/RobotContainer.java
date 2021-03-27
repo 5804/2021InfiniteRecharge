@@ -37,11 +37,8 @@ import frc.robot.commands.commandGroups.GalacticSearchABlue;
 import frc.robot.commands.commandGroups.GalacticSearchARed;
 import frc.robot.commands.commandGroups.GalacticSearchBBlue;
 import frc.robot.commands.commandGroups.GalacticSearchBRed;
-<<<<<<< HEAD
 import frc.robot.commands.commandGroups.PracticeBounce;
-=======
 import frc.robot.commands.commandGroups.GalacticSearchPhase1;
->>>>>>> f82ad2e7d6560b472fd6e2262e0db23b03fccae5
 import frc.robot.commands.commandGroups.Slalom;
 import frc.robot.subsystems.DriveTrainSubsystem;
 import frc.robot.subsystems.ExampleSubsystem;
