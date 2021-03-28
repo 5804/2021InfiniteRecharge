@@ -109,7 +109,7 @@ public class PracticeBounce extends SequentialCommandGroup {
 
       //driveTrainSubsystem.resetOdometry(trajectory.getInitialPose());
 
-    trajectoryJSON = "paths/groups/bounce5.wpilib.json";
+    /*trajectoryJSON = "paths/groups/bounce5.wpilib.json";
     Trajectory trajectoryFinal = new Trajectory();
     try {
         Path trajectoryPath = Filesystem.getDeployDirectory().toPath().resolve(trajectoryJSON);
@@ -118,7 +118,7 @@ public class PracticeBounce extends SequentialCommandGroup {
         DriverStation.reportError("Unable to open trajectory: " + trajectoryJSON, ex.getStackTrace());
     }
 
-    /*RamseteCommand bouncePath5 = new RamseteCommand(
+    RamseteCommand bouncePath5 = new RamseteCommand(
       trajectoryFinal,
       driveTrainSubsystem::getPose,
       new RamseteController(kRamseteB, kRamseteZeta),
