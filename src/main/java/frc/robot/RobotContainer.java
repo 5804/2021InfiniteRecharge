@@ -96,13 +96,13 @@ public class RobotContainer {
 
   private final GalacticSearchPhase1 galacticSearchPhase1 = new GalacticSearchPhase1(driveTrainSubsystem, intakeSubsystem, limelightSubsystem);
 
-  private final Slalom slalom = new Slalom(driveTrainSubsystem, intakeSubsystem);
-
   private final Bounce bounce = new Bounce(driveTrainSubsystem, intakeSubsystem);
 
   private final DriveForward5Feet barrelRacingPath = new DriveForward5Feet(driveTrainSubsystem, intakeSubsystem);
-
   private final PracticeBounce practice = new PracticeBounce(driveTrainSubsystem, intakeSubsystem);
+  private final Slalom slalom = new Slalom(driveTrainSubsystem, intakeSubsystem);
+
+  
 
   SendableChooser<Command> sendableChooser = new SendableChooser<>();
 
