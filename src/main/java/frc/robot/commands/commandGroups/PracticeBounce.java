@@ -87,7 +87,7 @@ public class PracticeBounce extends SequentialCommandGroup {
       //driveTrainSubsystem.resetOdometry(trajectory.getInitialPose());
 
     //trajectoryJSON = "paths/output/bounce3.wpilib.json";
-    trajectoryJSON = "paths/output/bounceP3.wpilib.json";
+    trajectoryJSON = "paths/output/bounceP3path.wpilib.json";
     Trajectory trajectory2 = new Trajectory();
     try {
         Path trajectoryPath = Filesystem.getDeployDirectory().toPath().resolve(trajectoryJSON);
