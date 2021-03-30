@@ -19,8 +19,10 @@ import edu.wpi.first.wpilibj.trajectory.TrajectoryUtil;
 import edu.wpi.first.wpilibj2.command.RamseteCommand;
 import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
 import frc.robot.commands.ActivateIntakeCommand;
+import frc.robot.commands.ResetEncoderCommand;
 import frc.robot.subsystems.DriveTrainSubsystem;
 import frc.robot.subsystems.IntakeSubsystem;
+import frc.robot.commands.ResetOdometryCommand;
 
 import static frc.robot.Constants.*;
 
@@ -57,14 +59,13 @@ public class BarrelRacingPath extends SequentialCommandGroup {
       driveTrainSubsystem
       );
 
-      driveTrainSubsystem.resetOdometry(trajectory.getInitialPose());
-
       
       ActivateIntakeCommand activateIntakeCommand = new ActivateIntakeCommand(intakeSubsystem);
 
+      ResetOdometryCommand resetOdometryCommand = new ResetOdometryCommand(driveTrainSubsystem, trajectory);
+
     // Add your commands in the addCommands() call, e.g.
     // addCommands(new FooCommand(), new BarCommand());
-    addCommands(new InstantCommand(() -> {driveTrainSubsystem.resetOdometry(trajectory.getInitialPose());}),
-      ramseteCommand, activateIntakeCommand);
+    addCommands(resetOdometryCommand, ramseteCommand, activateIntakeCommand);
   }
 }
