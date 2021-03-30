@@ -6,7 +6,9 @@ package frc.robot.commands.commandGroups;
 
 import java.io.IOException;
 import java.nio.file.Path;
+import java.time.Instant;
 
+import edu.wpi.first.wpilibj2.command.InstantCommand;
 import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.Filesystem;
 import edu.wpi.first.wpilibj.controller.PIDController;
@@ -26,11 +28,12 @@ import static frc.robot.Constants.*;
 // information, see:
 // https://docs.wpilib.org/en/stable/docs/software/commandbased/convenience-features.html
 public class BarrelRacingPath extends SequentialCommandGroup {
+  Trajectory trajectory = new Trajectory();
+  
   /** Creates a new BarrelRacingPath. */
   public BarrelRacingPath(DriveTrainSubsystem driveTrainSubsystem, IntakeSubsystem intakeSubsystem) {
     String trajectoryJSON = "paths/output/barrelRacingPath.wpilib.json";
     //String trajectoryJSON = "paths/PathWeaver/output/pathweaver.wpilib.json";
-    Trajectory trajectory = new Trajectory();
     try {
         Path trajectoryPath = Filesystem.getDeployDirectory().toPath().resolve(trajectoryJSON);
         trajectory = TrajectoryUtil.fromPathweaverJson(trajectoryPath);
@@ -61,6 +64,7 @@ public class BarrelRacingPath extends SequentialCommandGroup {
 
     // Add your commands in the addCommands() call, e.g.
     // addCommands(new FooCommand(), new BarCommand());
-    addCommands(ramseteCommand, activateIntakeCommand);
+    addCommands(new InstantCommand(() -> {driveTrainSubsystem.resetOdometry(trajectory.getInitialPose());}),
+      ramseteCommand, activateIntakeCommand);
   }
 }

@@ -9,6 +9,7 @@ import java.nio.file.Path;
 
 import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.Filesystem;
+import edu.wpi.first.wpilibj2.command.InstantCommand;
 import edu.wpi.first.wpilibj.controller.PIDController;
 import edu.wpi.first.wpilibj.controller.RamseteController;
 import edu.wpi.first.wpilibj.controller.SimpleMotorFeedforward;
@@ -26,10 +27,11 @@ import static frc.robot.Constants.*;
 // information, see:
 // https://docs.wpilib.org/en/stable/docs/software/commandbased/convenience-features.html
 public class Slalom extends SequentialCommandGroup {
+  Trajectory trajectory = new Trajectory();
   /** Creates a new Slalom. */
   public Slalom(DriveTrainSubsystem driveTrainSubsystem, IntakeSubsystem intakeSubsystem) {
     String trajectoryJSON = "paths/output/slalom2.wpilib.json";
-    Trajectory trajectory = new Trajectory();
+    
     try {
         Path trajectoryPath = Filesystem.getDeployDirectory().toPath().resolve(trajectoryJSON);
         trajectory = TrajectoryUtil.fromPathweaverJson(trajectoryPath);
@@ -60,6 +62,7 @@ public class Slalom extends SequentialCommandGroup {
 
     // Add your commands in the addCommands() call, e.g.
     // addCommands(new FooCommand(), new BarCommand());
-    addCommands(ramseteCommand, activateIntakeCommand);
+    addCommands(new InstantCommand(() -> {driveTrainSubsystem.resetOdometry(trajectory.getInitialPose());}),
+    ramseteCommand, activateIntakeCommand);
   }
 }

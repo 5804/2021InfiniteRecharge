@@ -14,6 +14,7 @@ import edu.wpi.first.wpilibj.controller.RamseteController;
 import edu.wpi.first.wpilibj.controller.SimpleMotorFeedforward;
 import edu.wpi.first.wpilibj.trajectory.Trajectory;
 import edu.wpi.first.wpilibj.trajectory.TrajectoryUtil;
+import edu.wpi.first.wpilibj2.command.InstantCommand;
 import edu.wpi.first.wpilibj2.command.RamseteCommand;
 import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
 import frc.robot.commands.ActivateIntakeCommand;
@@ -26,10 +27,11 @@ import static frc.robot.Constants.*;
 // information, see:
 // https://docs.wpilib.org/en/stable/docs/software/commandbased/convenience-features.html
 public class Bounce extends SequentialCommandGroup {
+  Trajectory trajectory = new Trajectory();
   /** Creates a new Bounce. */
   public Bounce(DriveTrainSubsystem driveTrainSubsystem, IntakeSubsystem intakeSubsystem) {
     String trajectoryJSON = "paths/output/Bounce.wpilib.json";
-    Trajectory trajectory = new Trajectory();
+    
     try {
         Path trajectoryPath = Filesystem.getDeployDirectory().toPath().resolve(trajectoryJSON);
         trajectory = TrajectoryUtil.fromPathweaverJson(trajectoryPath);
@@ -60,6 +62,7 @@ public class Bounce extends SequentialCommandGroup {
 
     // Add your commands in the addCommands() call, e.g.
     // addCommands(new FooCommand(), new BarCommand());
-    addCommands(ramseteCommand, activateIntakeCommand);
+    addCommands(new InstantCommand(() -> {driveTrainSubsystem.resetOdometry(trajectory.getInitialPose());}),
+    ramseteCommand, activateIntakeCommand);
   }
 }
