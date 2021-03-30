@@ -19,6 +19,8 @@ import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
 import frc.robot.commands.ActivateIntakeCommand;
 import frc.robot.subsystems.DriveTrainSubsystem;
 import frc.robot.subsystems.IntakeSubsystem;
+import edu.wpi.first.wpilibj2.command.InstantCommand;
+import frc.robot.commands.ResetOdometryCommand;
 
 import static frc.robot.Constants.*;
 
@@ -28,7 +30,8 @@ import static frc.robot.Constants.*;
 public class PracticeBounce extends SequentialCommandGroup {
   /** Creates a new PracticeBounce. */
   public PracticeBounce(DriveTrainSubsystem driveTrainSubsystem, IntakeSubsystem intakeSubsystem) {
-    String trajectoryJSON = "paths/output/bounce1.wpilib.json";
+    //String trajectoryJSON = "paths/output/bounce1.wpilib.json";
+    String trajectoryJSON = "paths/output/bounceP1.wpilib.json";
     Trajectory trajectory = new Trajectory();
     try {
         Path trajectoryPath = Filesystem.getDeployDirectory().toPath().resolve(trajectoryJSON);
@@ -55,7 +58,8 @@ public class PracticeBounce extends SequentialCommandGroup {
 
       driveTrainSubsystem.resetOdometry(trajectory.getInitialPose());
 
-    trajectoryJSON = "paths/output/bounce2.wpilib.json";
+    //trajectoryJSON = "paths/output/bounce2.wpilib.json";
+    trajectoryJSON = "paths/output/bounceP2.wpilib.json";
     Trajectory trajectory1 = new Trajectory();
     try {
         Path trajectoryPath = Filesystem.getDeployDirectory().toPath().resolve(trajectoryJSON);
@@ -82,7 +86,8 @@ public class PracticeBounce extends SequentialCommandGroup {
 
       //driveTrainSubsystem.resetOdometry(trajectory.getInitialPose());
 
-    trajectoryJSON = "paths/output/bounce3.wpilib.json";
+    //trajectoryJSON = "paths/output/bounce3.wpilib.json";
+    trajectoryJSON = "paths/output/bounceP3.wpilib.json";
     Trajectory trajectory2 = new Trajectory();
     try {
         Path trajectoryPath = Filesystem.getDeployDirectory().toPath().resolve(trajectoryJSON);
@@ -109,7 +114,8 @@ public class PracticeBounce extends SequentialCommandGroup {
 
       //driveTrainSubsystem.resetOdometry(trajectory.getInitialPose());
 
-    trajectoryJSON = "paths/output/bounce5.wpilib.json";
+    //trajectoryJSON = "paths/output/bounce5.wpilib.json";
+    trajectoryJSON = "paths/output/bounceP4.wpilib.json";
     Trajectory trajectoryFinal = new Trajectory();
     try {
         Path trajectoryPath = Filesystem.getDeployDirectory().toPath().resolve(trajectoryJSON);
@@ -136,11 +142,13 @@ public class PracticeBounce extends SequentialCommandGroup {
     
       //driveTrainSubsystem.resetOdometry(trajectoryFinal.getInitialPose());
       
+      ResetOdometryCommand resetOdometryCommand = new ResetOdometryCommand(driveTrainSubsystem, trajectory);
 
       ActivateIntakeCommand activateIntakeCommand = new ActivateIntakeCommand(intakeSubsystem);
 
     // Add your commands in the addCommands() call, e.g.
     // addCommands(new FooCommand(), new BarCommand());
-    addCommands(bouncePath1, bouncePath2, bouncePath3, bouncePath5, activateIntakeCommand);
+    addCommands(resetOdometryCommand,
+    bouncePath1, bouncePath2, bouncePath3, bouncePath5, activateIntakeCommand);
   }
 }
