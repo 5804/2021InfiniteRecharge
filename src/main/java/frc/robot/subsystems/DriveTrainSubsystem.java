@@ -86,7 +86,7 @@ public class DriveTrainSubsystem extends SubsystemBase {
 
     SmartDashboard.putNumber("Left Position", leftMain.getSelectedSensorPosition());
     SmartDashboard.putNumber("Right Position", rightMain.getSelectedSensorPosition());
-    SmartDashboard.putNumber("PosX", odometry.getPoseMeters().getTranslation().getY());
+    SmartDashboard.putNumber("PosX", odometry.getPoseMeters().getTranslation().getX());
     SmartDashboard.putNumber("PosY", odometry.getPoseMeters().getTranslation().getY());
 
 
