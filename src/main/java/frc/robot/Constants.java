@@ -45,14 +45,14 @@ public final class Constants {
 	public static final double ENCODER_DISTANCE_METERS_PER_PULSE = (.1524 * 3.14159265)/29020.16;
 
     // .675 trackwidth
-	public static final double DRIVE_TRAIN_WIDTH = 1.3;
+	public static final double DRIVE_TRAIN_WIDTH = 1.156;
 	public static final double GEAR_RATIO = 14.17;
 	public static final double WHEEL_RADIUS = .0762;
 
 	// TODO: this might be in feet, could have to put in meters
-	public static final double KS = 0.625;
-	public static final double KV = 3.17;
-	public static final double KA = 0.324;
+	public static final double KS = 0.663;
+	public static final double KV = 3.12;
+	public static final double KA = 0.245;
 	// r^2 .999
 
 	public static final double KAVoltSecondsSquaredPerMeter = 0.0;
