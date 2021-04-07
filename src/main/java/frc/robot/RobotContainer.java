@@ -195,7 +195,7 @@ public class RobotContainer {
  
     // if there are no commands running on the intake, the intake will be deactivated
     intakeSubsystem.setDefaultCommand(deactivateIntakeCommand);
-    shooterSubsystem.setDefaultCommand(shooterIdleCommand);
+    //shooterSubsystem.setDefaultCommand(shooterIdleCommand);
 
     //sendableChooser.setDefaultOption("Simple Path", simplePathCommand);
     sendableChooser.setDefaultOption("Galactic Search - Path B - Blue", galacticSearchBBlue);
