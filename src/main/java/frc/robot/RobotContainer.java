@@ -30,6 +30,7 @@ import edu.wpi.first.wpilibj.trajectory.constraint.DifferentialDriveVoltageConst
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 import frc.robot.commands.*;
 import frc.robot.commands.commandGroups.AimAndRunShooterMotorCommandGroup;
+import frc.robot.commands.commandGroups.BarrelRacingPath;
 import frc.robot.commands.commandGroups.DriveForward5Feet;
 import frc.robot.commands.commandGroups.Bounce;
 import frc.robot.commands.commandGroups.DriveAndShootCommandGroup;
@@ -98,7 +99,7 @@ public class RobotContainer {
 
   private final Bounce bounce = new Bounce(driveTrainSubsystem, intakeSubsystem);
 
-  private final DriveForward5Feet barrelRacingPath = new DriveForward5Feet(driveTrainSubsystem, intakeSubsystem);
+  private final BarrelRacingPath barrelRacingPath = new BarrelRacingPath(driveTrainSubsystem);
   
   private final Slalom slalom = new Slalom(driveTrainSubsystem, intakeSubsystem);
 
